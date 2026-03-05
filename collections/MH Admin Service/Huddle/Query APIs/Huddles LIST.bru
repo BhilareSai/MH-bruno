@@ -1,0 +1,41 @@
+meta {
+  name: Huddles LIST
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/ops/api/v1/huddles?viewType=SCHEDULED&month=3&year=2026&lob=&region=&search=&page=1&size=20&sortBy=MEETING_DATE&sortDirection=DESC&Business-Segment=Trade
+  body: none
+  auth: inherit
+}
+
+params:query {
+  viewType: SCHEDULED
+  month: 3
+  year: 2026
+  lob: 
+  region: 
+  search: 
+  page: 1
+  size: 20
+  sortBy: MEETING_DATE
+  sortDirection: DESC
+  Business-Segment: Trade
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Fetches huddles that are currently in progress (SCHEDULED status, today's date, current time within start/end).
+  
+  **Response:** `ApiResponse<List<HuddleOngoingResponseDTO>>`.
+}
