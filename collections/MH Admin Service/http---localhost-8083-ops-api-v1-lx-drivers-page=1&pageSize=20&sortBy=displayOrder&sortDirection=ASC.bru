@@ -1,0 +1,32 @@
+meta {
+  name: http://localhost:8083/ops/api/v1/lx/drivers?page=1&pageSize=20&sortBy=displayOrder&sortDirection=ASC
+  type: http
+  seq: 12
+}
+
+get {
+  url: http://localhost:8083/ops/api/v1/lx/drivers?page=1&pageSize=20&sortBy=displayOrder&sortDirection=ASC
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 1
+  pageSize: 20
+  sortBy: displayOrder
+  sortDirection: ASC
+}
+
+headers {
+  accept: */*
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Generated from cURL: curl -X 'GET' \
+    'http://localhost:8083/ops/api/v1/lx/drivers?page=1&pageSize=20&sortBy=displayOrder&sortDirection=ASC' \
+    -H 'accept: */*'
+}

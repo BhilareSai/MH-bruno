@@ -1,0 +1,33 @@
+meta {
+  name: 5. Update Huddle Notes
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/ops/api/v1/huddles/{{huddleId}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+      "additionalNotes": "Discussed escalation process. Need follow-up next week."
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Updates the additional notes on a huddle.
+  
+  **Response:** 200 with `"Huddle updated successfully"`.
+}

@@ -1,0 +1,25 @@
+meta {
+  name: 11. Get Ongoing Huddles
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/ops/api/v1/huddles/ongoing
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Fetches huddles that are currently in progress (SCHEDULED status, today's date, current time within start/end).
+
+  **Response:** `ApiResponse<List<HuddleOngoingResponseDTO>>`.
+}

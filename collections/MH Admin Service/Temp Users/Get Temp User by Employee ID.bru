@@ -1,0 +1,23 @@
+meta {
+  name: Get Temp User by Employee ID
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/admin/api/v1/admin/temp-users/EMP001
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Get details of a specific temp user by employee ID.
+}

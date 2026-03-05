@@ -1,0 +1,59 @@
+meta {
+  name: http://localhost:8082/data/api/v1/data/customers?page=0&size=20&sortBy=CUSTOMER_NAME&sortDirection=ASC&search=string&customerCode=%5B%22string%22%5D&customerName=%5B%22string%22%5D&status=%5B%22string%22%5D&customerCategory=%5B%22string%22%5D&customerTier
+  type: http
+  seq: 14
+}
+
+get {
+  url: http://localhost:8082/data/api/v1/data/customers?page=0&size=20&sortBy=CUSTOMER_NAME&sortDirection=ASC&search=string&customerCode=%5B%22string%22%5D&customerName=%5B%22string%22%5D&status=%5B%22string%22%5D&customerCategory=%5B%22string%22%5D&customerTier=%5B%22string%22%5D&customerClassification=%5B%22string%22%5D&primingStatus=%5B%22string%22%5D&primingMode=%5B%22string%22%5D&businessSegment=%5B%22string%22%5D&lob=%5B%22string%22%5D&cityCode=%5B%22string%22%5D&depoCode=%5B%22string%22%5D&surveyLanguage=%5B%22string%22%5D&preferredLanguage=%5B%22string%22%5D&associatedDealerCode=%5B%22string%22%5D&groupName=%5B%22string%22%5D&siteId=%5B%22string%22%5D&siteName=%5B%22string%22%5D&touchpointId=%5B%22string%22%5D&frequencyMin=0&frequencyMax=0&zoneCode=%5B%22string%22%5D&regionCode=%5B%22string%22%5D&districtCode=%5B%22string%22%5D
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 0
+  size: 20
+  sortBy: CUSTOMER_NAME
+  sortDirection: ASC
+  search: string
+  customerCode: %5B%22string%22%5D
+  customerName: %5B%22string%22%5D
+  status: %5B%22string%22%5D
+  customerCategory: %5B%22string%22%5D
+  customerTier: %5B%22string%22%5D
+  customerClassification: %5B%22string%22%5D
+  primingStatus: %5B%22string%22%5D
+  primingMode: %5B%22string%22%5D
+  businessSegment: %5B%22string%22%5D
+  lob: %5B%22string%22%5D
+  cityCode: %5B%22string%22%5D
+  depoCode: %5B%22string%22%5D
+  surveyLanguage: %5B%22string%22%5D
+  preferredLanguage: %5B%22string%22%5D
+  associatedDealerCode: %5B%22string%22%5D
+  groupName: %5B%22string%22%5D
+  siteId: %5B%22string%22%5D
+  siteName: %5B%22string%22%5D
+  touchpointId: %5B%22string%22%5D
+  frequencyMin: 0
+  frequencyMax: 0
+  zoneCode: %5B%22string%22%5D
+  regionCode: %5B%22string%22%5D
+  districtCode: %5B%22string%22%5D
+}
+
+headers {
+  accept: */*
+  Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzaWRkZXNoMUBnbWFpbC5jb20iLCJpc3MiOiJtaC1wbGF0Zm9ybSIsImF1ZCI6WyJtaC1zZXJ2aWNlcyJdLCJpYXQiOjE3NzIwNzAxMjMsImV4cCI6MTc3MjA3MTkyMywidXNlcklkIjoxNDczOTUzMDI1Mjc0MDY4OTkyLCJlbWFpbCI6InNpZGRlc2gxQGdtYWlsLmNvbSIsImVtcGxveWVlSWQiOiIxMjFqZmpqIiwiZnVsbE5hbWUiOiJzaWRkZXNoMSIsInVzZXJUeXBlIjoiVVRDTF9FTVBMT1lFRSIsInNlZ21lbnQiOiJUUkFERSIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOlsiVE1UQ1MiXX0.R-mK4KUiS81zdY52UaKZx5nW_z7NR1mliSGtDNDYzwNX85mByyBdjUCQk9dzVW1X
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Generated from cURL: curl -X 'GET' \
+    'http://localhost:8082/data/api/v1/data/customers?page=0&size=20&sortBy=CUSTOMER_NAME&sortDirection=ASC&search=string&customerCode=%5B%22string%22%5D&customerName=%5B%22string%22%5D&status=%5B%22string%22%5D&customerCategory=%5B%22string%22%5D&customerTier=%5B%22string%22%5D&customerClassification=%5B%22string%22%5D&primingStatus=%5B%22string%22%5D&primingMode=%5B%22string%22%5D&businessSegment=%5B%22string%22%5D&lob=%5B%22string%22%5D&cityCode=%5B%22string%22%5D&depoCode=%5B%22string%22%5D&surveyLanguage=%5B%22string%22%5D&preferredLanguage=%5B%22string%22%5D&associatedDealerCode=%5B%22string%22%5D&groupName=%5B%22string%22%5D&siteId=%5B%22string%22%5D&siteName=%5B%22string%22%5D&touchpointId=%5B%22string%22%5D&frequencyMin=0&frequencyMax=0&zoneCode=%5B%22string%22%5D&regionCode=%5B%22string%22%5D&districtCode=%5B%22string%22%5D' \
+    -H 'accept: */*' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzaWRkZXNoMUBnbWFpbC5jb20iLCJpc3MiOiJtaC1wbGF0Zm9ybSIsImF1ZCI6WyJtaC1zZXJ2aWNlcyJdLCJpYXQiOjE3NzIwNzAxMjMsImV4cCI6MTc3MjA3MTkyMywidXNlcklkIjoxNDczOTUzMDI1Mjc0MDY4OTkyLCJlbWFpbCI6InNpZGRlc2gxQGdtYWlsLmNvbSIsImVtcGxveWVlSWQiOiIxMjFqZmpqIiwiZnVsbE5hbWUiOiJzaWRkZXNoMSIsInVzZXJUeXBlIjoiVVRDTF9FTVBMT1lFRSIsInNlZ21lbnQiOiJUUkFERSIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOlsiVE1UQ1MiXX0.R-mK4KUiS81zdY52UaKZx5nW_z7NR1mliSGtDNDYzwNX85mByyBdjUCQk9dzVW1X'
+}

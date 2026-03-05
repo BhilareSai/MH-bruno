@@ -1,0 +1,16 @@
+opencollection: 1.0.0
+info:
+  name: "MH"
+  type: workspace
+
+collections:
+  - name: "new"
+    path: "collections/new"
+  - name: "Huddles API"
+    path: "collections/Huddles API"
+  - name: "MH Admin Service"
+    path: "collections/MH Admin Service"
+
+specs:
+
+docs: ''

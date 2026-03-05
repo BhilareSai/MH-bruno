@@ -1,0 +1,21 @@
+meta {
+  name: API #3 - Get Driver Config by ID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/v1/lx/drivers/{{driverId}}
+  body: none
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: Trade
+  Authorization: Bearer {{access_token}}
+}
+
+settings {
+  encodeUrl: true
+}

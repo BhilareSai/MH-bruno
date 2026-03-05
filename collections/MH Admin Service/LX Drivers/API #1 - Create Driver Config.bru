@@ -1,0 +1,37 @@
+meta {
+  name: API #1 - Create Driver Config
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/lx/drivers
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: Trade
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+      "lobCode": "CEMENT",
+      "productCode": "HL_STAdsnNjDARD",
+      "l1DriverName": "Dogcsumssentation",
+      "l2DriverName": "KYC Pending",
+      "functionalType": "LOGISTICS",
+      "farRoleCode": "PLH",
+      "tatDays": 5,
+      "functionalEscalation": "ZLH",
+      "actionCreation": true,
+      "displayOrder": 1,
+      "status": "ACTIVE"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

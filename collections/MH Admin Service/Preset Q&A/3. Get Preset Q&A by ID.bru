@@ -1,0 +1,28 @@
+meta {
+  name: 3. Get Preset Q&A by ID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/admin/api/v1/preset-qa?entityId={{preset_qa_id}}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  entityId: {{preset_qa_id}}
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Retrieves a Preset Q&A by ID. Segment ownership is validated — cross-segment access returns 404.
+}

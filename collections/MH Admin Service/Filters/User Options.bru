@@ -1,0 +1,31 @@
+meta {
+  name: User Options
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/admin/api/v1/admin/filters/user-options?field=reportingManager&search=seed
+  body: none
+  auth: inherit
+}
+
+params:query {
+  field: reportingManager
+  search: seed
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Generated from cURL:   curl --location 'http://localhost:8080/admin/api/v1/admin/filters/user-options?field=reportingManager&search=seed' \
+    --header 'Authorization: Bearer {{access_token}}' \
+    --header 'Business-Segment: Trade'
+}

@@ -1,0 +1,35 @@
+meta {
+  name: 3. Create Action Item in Huddle
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/ops/api/v1/huddles/{{huddleId}}/action-items
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+      "actionDescription": "Follow up with depot manager on pending deliveries"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates a brand new action item directly inside a huddle (from huddle discussion).
+  
+  Generates a UID like `AI-A1B2C3D4`, sets `PUSH_TO_HUDDLE = true`, `HUDDLE_ID` = path param, `STATUS = OPEN`.
+  
+  **Response:** 201 No Body.
+}

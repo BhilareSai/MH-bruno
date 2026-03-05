@@ -1,0 +1,33 @@
+meta {
+  name: 3. Geography Filter - List Zones
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/admin/api/v1/admin/filters/geography?type=zone&page=1&size=20
+  body: none
+  auth: inherit
+}
+
+params:query {
+  type: zone
+  page: 1
+  size: 20
+  ~source: facility
+  ~search: 
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Get all zones from UTCL_FACILITY_MASTER (default source). Paginated.
+  Returns code + description pairs.
+}
