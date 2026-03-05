@@ -1,0 +1,31 @@
+meta {
+  name: Update User
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/admin/api/v1/admin/users/SEED0060
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
+}
+
+body:json {
+  {
+    "status": "ACTIVE"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Update user status, system role and/or escalation flag. Omit fields to leave them unchanged.
+}

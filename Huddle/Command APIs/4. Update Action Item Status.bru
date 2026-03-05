@@ -1,0 +1,36 @@
+meta {
+  name: 4. Update Action Item Status
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/ops/api/v1/huddles/action-items/{{actionItemId}}/status
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+      "status": "IN_PROGRESS"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Updates the status of a huddle action item.
+
+  **Allowed statuses:** `OPEN`, `IN_PROGRESS`, `ESCALATED`, `CLOSED`
+
+  Validates the item has `PUSH_TO_HUDDLE = true`.
+
+  **Response:** 200 No Body.
+}

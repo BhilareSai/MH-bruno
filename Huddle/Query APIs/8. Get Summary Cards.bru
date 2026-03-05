@@ -1,0 +1,25 @@
+meta {
+  name: 8. Get Summary Cards
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/ops/api/v1/huddles/summary
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Dashboard KPI cards: pending approvals, open action items, conducted huddles.
+
+  **Response:** `ApiResponse<HuddleSummaryResponseDTO>`.
+}

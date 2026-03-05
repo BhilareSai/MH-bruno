@@ -1,0 +1,45 @@
+meta {
+  name: update
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{base_url}}/admin/api/v1/bpo/users/1475863064045420544/status
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: TRADE
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+        "status": "ACTIVE",
+        "phoneNumber": "9876543210",
+        "lobId": "LOB_CEMENT_TRADE",
+        "lobName": "LOB_CEMENT_TRADE",
+        "listOfLanguages": "English,Hindi",
+        "zoneId": "Z001",
+        "zoneName": "West Zone",
+        "regionId": "R001",
+        "regionName": "Mumbai Region"
+    }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Generated from cURL:   curl --location --request PATCH 'http://localhost:8081/api/v1/bpo/users/1/status' \                                            
+    --header 'Content-Type: application/json' \                                                                                    
+    --header 'Business-Segment: TRADE' \                                                                                           
+    --header 'Authorization: Bearer <your-token>' \                                                                                
+    --data '{                                                 
+        "status": "ACTIVE"
+    }'
+}

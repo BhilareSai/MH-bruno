@@ -1,0 +1,28 @@
+meta {
+  name: MH Admin Service
+}
+
+auth {
+  mode: none
+}
+
+vars:pre-request {
+  base_url: http://localhost:8080
+  access_token:
+  refresh_token:
+  temp_token:
+  preset_qa_id:
+  huddleId: MH-ABC12345
+  actionItemId: 1
+}
+
+docs {
+  Mission Happiness Admin Service API Collection.
+  All requests route through the API Gateway.
+  
+  Variables:
+  - base_url: API Gateway base URL
+  - access_token: auto-set on login/create-password
+  - refresh_token: auto-set on login/create-password
+  - temp_token: auto-set on verify-otp
+}

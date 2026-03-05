@@ -1,0 +1,36 @@
+meta {
+  name: 2. Import Action Items into Huddle
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/ops/api/v1/huddles/{{huddleId}}/action-items/import
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+      "actionItemIds": [4, 5, 6]
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Imports existing action items into a huddle.
+
+  Items must have `PUSH_TO_HUDDLE = true` and `HUDDLE_ID IS NULL` (not yet assigned to any huddle).
+
+  Huddle must not be CLOSED.
+
+  **Response:** 201 No Body.
+}

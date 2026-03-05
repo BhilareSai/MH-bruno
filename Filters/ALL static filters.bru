@@ -1,0 +1,43 @@
+meta {
+  name: ALL static filters
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{base_url}}/admin/api/v1/admin/filters?types=roles,surveyChannels,npsCategories,functionalTypes,customerTiers,customerSegments,customerClassifications,customerCategories,lobs,functionalRoles,segments,callDispositions,actionItemStatuses,huddleStatuses,closureQualityRatings,escalationLevels,huddleActionItemStatuses,getInTouchStatuses,getInTouchCategoryTypes&search=&lx=false
+  body: none
+  auth: inherit
+}
+
+params:query {
+  types: roles,surveyChannels,npsCategories,functionalTypes,customerTiers,customerSegments,customerClassifications,customerCategories,lobs,functionalRoles,segments,callDispositions,actionItemStatuses,huddleStatuses,closureQualityRatings,escalationLevels,huddleActionItemStatuses,getInTouchStatuses,getInTouchCategoryTypes
+  search: 
+  lx: false
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Generated from cURL:   curl --location 'http://localhost:8081/api/v1/admin/filters?types=roles,surveyChannels,npsCategories,functionalTypes,cu
+    stomerTiers,customerSegments,customerClassifications,customerCategories,lobs,functionalRoles,segments,callDispositions,
+    actionItemStatuses,huddleStatuses,closureQualityRatings,escalationLevels,huddleActionItemStatuses,getInTouchStatuses,ge
+    tInTouchCategoryTypes&search=&lx=false' \
+    --header 'Business-Segment: Trade' \
+    --header 'X-User-Id: 1' \
+    --header 'X-User-Email: admin@ultratech.com' \
+    --header 'X-User-Name: Admin User' \
+    --header 'X-User-Type: INTERNAL' \
+    --header 'X-User-Roles: BUSINESS_ADMIN,ZONAL_SPOC' \
+    --header 'X-Reference-ID: test-ref-002' \
+    --header 'Language-Code: en' \
+    --header 'Content-Type: application/json'
+  
+}

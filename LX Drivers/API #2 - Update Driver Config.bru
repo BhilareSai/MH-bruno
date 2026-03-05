@@ -1,0 +1,37 @@
+meta {
+  name: API #2 - Update Driver Config
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/api/v1/lx/drivers/{{driverId}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: Trade
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+      "lobCode": "HOME_LOAN",
+      "productCode": "HL_STANDARD",
+      "l1DriverName": "Documentation",
+      "l2DriverName": "KYC Updated",
+      "functionalType": "QUERY",
+      "farRoleCode": "FAR_ROLE_01",
+      "tatDays": 7,
+      "functionalEscalation": "LEVEL_2",
+      "actionCreation": true,
+      "displayOrder": 1,
+      "status": "ACTIVE"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

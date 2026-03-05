@@ -1,0 +1,38 @@
+meta {
+  name: 9. View All (Dashboard)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/ops/api/v1/huddles/view-all?type=PENDING&page=0&size=10
+  body: none
+  auth: inherit
+}
+
+params:query {
+  type: PENDING
+  page: 0
+  size: 10
+  ~region: NORTH
+  ~lob: CEMENT
+  ~quarter: 1
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Paginated dashboard data based on KPI type.
+
+  - `PENDING` -> Huddles with status PENDING
+  - `CONDUCTED` -> Huddles with status CLOSED
+  - `OPEN_ACTIONS` -> Action items with pushToHuddle=true, huddleId set, status != CLOSED
+
+  **Response:** `ApiResponse<Page<?>>`.
+}

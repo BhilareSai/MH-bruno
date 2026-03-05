@@ -1,0 +1,39 @@
+meta {
+  name: 8. Logout
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/auth/logout
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+    "refreshToken": "{{refresh_token}}",
+    "logoutAllDevices": false
+  }
+}
+
+script:post-response {
+  bru.setVar('access_token', '');
+  bru.setVar('refresh_token', '');
+  console.log('Tokens cleared.');
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Logout and revoke refresh token.
+  Set logoutAllDevices: true to revoke all sessions.
+  Clears access_token and refresh_token from collection variables.
+}

@@ -1,0 +1,30 @@
+meta {
+  name: Transfer User from UTCL
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/admin/users/transfer
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+    "email": "user@example.com"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Transfer a pre-provisioned user from UTCL_USER to MH_USERS with a default password.
+}
