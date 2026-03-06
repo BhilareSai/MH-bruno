@@ -9,7 +9,7 @@ collections:
   - name: "Huddles API"
     path: "collections/Huddles API"
   - name: "MH Admin Service"
-    path: "collections/MH Admin Service"
+    path: "../../WorkSpace/bruno/MH-bruno"
 
 specs:
 
