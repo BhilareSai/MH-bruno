@@ -20,7 +20,7 @@ body:json {
   {
       "objective": "Q1 Review - North Region Action Items",
       "lob": "CEMENT",
-      "timeline": "WEEKLY",
+      "timeline": "THIS_QUARTER",
       "regions": [
           {
               "regionCode": "NORTH",
@@ -45,18 +45,19 @@ body:json {
               "endTime": "15:00:00"
           }
       ],
-      "actionItemIds": [1, 2, 3]
+      "actionItemIds": [1465]
   }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
   Creates a new huddle with regions, schedule options, and optionally imports action items.
-
+  
   **Note:** `actionItemIds` must reference items where `PUSH_TO_HUDDLE = true` and `HUDDLE_ID IS NULL`.
-
+  
   **Response:** 201 with `CreateHuddleResponseDTO` containing generated `huddleId`.
 }

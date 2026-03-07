@@ -13,22 +13,25 @@ post {
 headers {
   Content-Type: application/json
   Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
 }
 
 body:json {
   {
-      "actionDescription": "Follow up with depot manager on pending deliveries"
+      "actionDescription": "Follow up with depot manager on pending deliveries",
+  "status":"OPEN"
   }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
   Creates a brand new action item directly inside a huddle (from huddle discussion).
-
+  
   Generates a UID like `AI-A1B2C3D4`, sets `PUSH_TO_HUDDLE = true`, `HUDDLE_ID` = path param, `STATUS = OPEN`.
-
+  
   **Response:** 201 No Body.
 }

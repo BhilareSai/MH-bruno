@@ -1,27 +1,29 @@
 meta {
-  name: 7. Get Huddle Details
+  name: 7. Get Huddle Details pending
   type: http
   seq: 2
 }
 
 get {
-  url: {{base_url}}/ops/api/v1/huddles/{{huddleId}}
+  url: {{base_url}}/ops/api/v1/huddles/{{huddleId}}/pending
   body: none
   auth: inherit
 }
 
 headers {
   Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
   Fetches complete details of a huddle including regions, meeting info, and action items.
-
+  
   Action items are now fetched directly from `MH_ACTION_ITEM` (no bridge table).
-
+  
   **Response:** `ApiResponse<HuddleDetailsResponseDTO>`.
 }

@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{base_url}}/ops/api/v1/huddles/action-items?page=1&size=20&sortBy=CREATED_ON&sortDirection=DESC
+  url: {{base_url}}/ops/api/v1/huddles/action-items?page=1&size=20&sortBy=CREATED_ON&sortDirection=DESC&seach=MH-25ECB1A2
   body: none
   auth: inherit
 }
@@ -15,25 +15,29 @@ params:query {
   size: 20
   sortBy: CREATED_ON
   sortDirection: DESC
+  seach: MH-25ECB1A2
   ~lob: CEMENT
   ~region: NORTH
   ~zone: ZONE1
   ~status: OPEN
   ~keyword: delivery
+  ~huddleId: MH-25ECB1A2
 }
 
 headers {
   Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
   Lists action items eligible for huddle import (`PUSH_TO_HUDDLE = true AND HUDDLE_ID IS NULL`).
-
+  
   Follows the admin-service list pattern with `ListCommonResponse` + `ColumnMetaDto` metadata.
-
+  
   **Response:** `ListCommonResponse<ActionItemListDto>` with columns metadata + pagination.
 }

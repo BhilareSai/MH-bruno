@@ -1,0 +1,27 @@
+meta {
+  name: schedule confrim
+  type: http
+  seq: 6
+}
+
+patch {
+  url: http://localhost:8080/operations/api/v1/huddles/MH-CC9F9DBB/schedule/confirm
+  body: json
+  auth: inherit
+}
+
+headers {
+  Business-Segment: Trade
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "optionNo": 1,
+    "meetingLink": "https://teams.microsoft.com/meet/abc123"
+  }
+}
+
+settings {
+  encodeUrl: false
+}

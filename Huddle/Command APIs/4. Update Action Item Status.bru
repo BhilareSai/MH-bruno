@@ -23,14 +23,15 @@ body:json {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
   Updates the status of a huddle action item.
-
+  
   **Allowed statuses:** `OPEN`, `IN_PROGRESS`, `ESCALATED`, `CLOSED`
-
+  
   Validates the item has `PUSH_TO_HUDDLE = true`.
-
+  
   **Response:** 200 No Body.
 }
