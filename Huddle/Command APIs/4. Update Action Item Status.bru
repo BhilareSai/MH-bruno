@@ -13,11 +13,12 @@ patch {
 headers {
   Content-Type: application/json
   Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
 }
 
 body:json {
   {
-      "status": "IN_PROGRESS"
+      "status": "OPEN"
   }
 }
 

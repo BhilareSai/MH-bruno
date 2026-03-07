@@ -18,11 +18,13 @@ headers {
 
 body:json {
   {
-    "lobCode": "CEMENT_TRADE",
+    "lobCode": "LOB_TECHNICAL",
     "customerSegment": "CP",
     "question": "What is the warranty period for cement bags?",
     "answer": "UltraTech Cement provides a 90-day warranty from the date of manufacturing for cement bags stored in proper conditions.",
-    "status": "ACTIVE"
+    "status": "ACTIVE",
+    "l1DriverName": "Documentation",
+      "l2DriverName": "KYC Verification"
   }
 }
 
@@ -36,6 +38,7 @@ script:post-response {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {

@@ -17,16 +17,20 @@ headers {
 
 body:json {
   {
-      "additionalNotes": "Discussed escalation process. Need follow-up next week."
+          "additionalNotes": "Discuss pending escalations from last week",
+        "meetingPresenter": "John Doe",
+        "presenterDesignation": "Regional Manager",
+        "meetingLink": "https://meet.google.com/abc-defg-hij"
   }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
   Updates the additional notes on a huddle.
-
+  
   **Response:** 200 with `"Huddle updated successfully"`.
 }
