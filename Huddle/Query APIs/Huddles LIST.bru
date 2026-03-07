@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{base_url}}/ops/api/v1/huddles?viewType=SCHEDULED&month=3&year=2026&lob=&region=&search=&page=1&size=20&sortBy=MEETING_DATE&sortDirection=DESC&Business-Segment=Trade
+  url: {{base_url}}/ops/api/v1/huddles?viewType=SCHEDULED&month=3&year=2026&lob&region&search&page=1&size=20&sortBy=MEETING_DATE&sortDirection=DESC&Business-Segment=Trade&new =tetw
   body: none
   auth: inherit
 }
@@ -22,6 +22,7 @@ params:query {
   sortBy: MEETING_DATE
   sortDirection: DESC
   Business-Segment: Trade
+  "new ": tetw
 }
 
 headers {
