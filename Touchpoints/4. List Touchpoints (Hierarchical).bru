@@ -1,0 +1,30 @@
+meta {
+  name: 4. List Touchpoints (Hierarchical)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/ops/api/v1/touchpoints?groupName=UltraTech
+  body: none
+  auth: inherit
+}
+
+params:query {
+  groupName: UltraTech
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: TRADE
+  Authorization: Bearer {{access_token}}
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,38 @@
+meta {
+  name: Feeb back validate customer
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/validate-customer
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "mobile": "9876543210"
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json.data && json.data.feedbackToken) {
+      bru.setVar('feedback_token', json.data.feedbackToken);
+      console.log('feedback_token saved:', json.data.feedbackToken);
+  }
+}
+
+settings {
+  encodeUrl: false
+}
+
+docs {
+  Validates a customer for feedback submission.
+  Saves feedback_token for use in the submit API.
+}

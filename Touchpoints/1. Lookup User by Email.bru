@@ -1,0 +1,30 @@
+meta {
+  name: 1. Lookup User by Email
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/ops/api/v1/touchpoints/lookup?email=Siddesh1@gmail.com
+  body: none
+  auth: inherit
+}
+
+params:query {
+  email: Siddesh1@gmail.com
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: TRADE
+  Authorization: Bearer {{access_token}}
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

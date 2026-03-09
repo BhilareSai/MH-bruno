@@ -1,0 +1,27 @@
+meta {
+  name: get TOUCHPOINT OF GROUP
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/ops/api/v1/touchpoints/group/{{group_name}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: KEY
+  Authorization: Bearer {{access_token}}
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+  group_name: 900000A002
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

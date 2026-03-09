@@ -1,0 +1,28 @@
+meta {
+  name: get TOUCHPOINT OF Site
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/ops/api/v1/touchpoints/site//{{customer_code}}
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: KEY
+  Authorization: Bearer {{access_token}}
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+  group_name: 900000A002
+  customer_code: 610102A002
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
