@@ -12,14 +12,16 @@ get {
 
 headers {
   Authorization: Bearer {{access_token}}
+  Business-Segment: Trade
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
   Dashboard KPI cards: pending approvals, open action items, conducted huddles.
-
+  
   **Response:** `ApiResponse<HuddleSummaryResponseDTO>`.
 }

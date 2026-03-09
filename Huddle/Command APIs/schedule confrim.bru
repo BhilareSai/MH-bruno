@@ -5,7 +5,7 @@ meta {
 }
 
 patch {
-  url: http://localhost:8080/operations/api/v1/huddles/MH-CC9F9DBB/schedule/confirm
+  url: http://192.168.1.40:8080/ops/api/v1/huddles/MH-CC9F9DBB/schedule/confirm
   body: json
   auth: inherit
 }
@@ -13,6 +13,8 @@ patch {
 headers {
   Business-Segment: Trade
   Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzaWRkZXNoMUBnbWFpbC5jb20iLCJpc3MiOiJtaC1wbGF0Zm9ybSIsImF1ZCI6WyJtaC1zZXJ2aWNlcyJdLCJpYXQiOjE3NzI4ODA2OTAsImV4cCI6MTc3Mjg4MjQ5MCwidXNlcklkIjoxNDczOTUzMDI1Mjc0MDY4OTkyLCJlbWFpbCI6InNpZGRlc2gxQGdtYWlsLmNvbSIsImVtcGxveWVlSWQiOiIxMjFqZmpqIiwiZnVsbE5hbWUiOiJzaWRkZXNoMSIsInVzZXJUeXBlIjoiVVRDTF9FTVBMT1lFRSIsInNlZ21lbnQiOiJUUkFERSIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOlsiVE1UQ1MiXX0.IPHQJjZxw8o234m0FCxpC6gWPP_bGQkBn67Wdgs88RR9S9XLr_aCOUqOXli8AIMZ
+  Business-Segment: Trade
 }
 
 body:json {
@@ -24,4 +26,5 @@ body:json {
 
 settings {
   encodeUrl: false
+  timeout: 0
 }

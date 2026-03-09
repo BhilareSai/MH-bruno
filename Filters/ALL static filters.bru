@@ -5,15 +5,13 @@ meta {
 }
 
 get {
-  url: {{base_url}}/admin/api/v1/admin/filters?types=roles,surveyChannels,npsCategories,functionalTypes,customerTiers,customerSegments,customerClassifications,customerCategories,lobs,functionalRoles,segments,callDispositions,actionItemStatuses,huddleStatuses,closureQualityRatings,escalationLevels,huddleActionItemStatuses,getInTouchStatuses,getInTouchCategoryTypes&search=&lx=false
+  url: {{base_url}}/admin/api/v1/admin/filters?types=roles,surveyChannels,timelines,npsCategories,functionalTypes,customerTiers,customerSegments,customerClassifications,customerCategories,lobs,functionalRoles,segments,callDispositions,actionItemStatuses,huddleStatuses,closureQualityRatings,escalationLevels,huddleActionItemStatuses,getInTouchStatuses,getInTouchCategoryTypes,userStatuses&search=&lx=false
   body: none
   auth: inherit
 }
 
 params:query {
-  types: roles,surveyChannels,npsCategories,functionalTypes,customerTiers,customerSegments,customerClassifications,customerCategories,lobs,functionalRoles,segments,callDispositions,actionItemStatuses,huddleStatuses,closureQualityRatings,escalationLevels,huddleActionItemStatuses,getInTouchStatuses,getInTouchCategoryTypes
-  search: 
-  lx: false
+  types: roles,surveyChannels,timelines,npsCategories,functionalTypes,customerTiers,customerSegments,customerClassifications,customerCategories,lobs,functionalRoles,segments,callDispositions,actionItemStatuses,huddleStatuses,closureQualityRatings,escalationLevels,huddleActionItemStatuses,getInTouchStatuses,getInTouchCategoryTypes,userStatuses&search=&lx=false
 }
 
 headers {
@@ -23,6 +21,7 @@ headers {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
