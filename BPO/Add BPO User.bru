@@ -5,36 +5,37 @@ meta {
 }
 
 post {
-  url: {{base_url}}/api/v1/bpo/add-user
+  url: {{base_url}}/admin/api/v1/bpo/add-user
   body: json
   auth: inherit
 }
 
 headers {
-  Content-Type: application/json
   Authorization: Bearer {{access_token}}
+  Business-Segment: Key
 }
 
 body:json {
   {
-  	"name": "John Doe",
-  	"phoneNumber": "9876543210",
-  	"email": "john.doe@bpo.com",
-  	"lobId": "LOB001",
-  	"lobName": "Consumer",
-  	"status": "ACTIVE",
-  	"listOfLanguages": "English,Hindi",
-  	"role": "CALL_CENTER_AGENT",
-  	"userType": "BPO_AGENT",
-  	"zoneId": "Z001",
-  	"zoneName": "North",
-  	"regionId": "R001",
-  	"regionName": "Delhi NCR",
-  	"cityId": "C001",
-  	"cityDesc": "New Delhi"
+    "name": "John Doe",
+    "phoneNumber": "9876543210",
+    "email": "john.doe@bpo.com",
+    "lobId": "LOB001",
+    "lobName": "Consumer",
+    "status": "ACTIVE",
+    "listOfLanguages": "English,Hindi",
+    "role": "CALL_CENTER_AGENT",
+    "userType": "BPO_AGENT",
+    "zoneId": "Z001",
+    "zoneName": "North",
+    "regionId": "R001",
+    "regionName": "Delhi NCR",
+    "cityId": "C001",
+    "cityDesc": "New Delhi"
   }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

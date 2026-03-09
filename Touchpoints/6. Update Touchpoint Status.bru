@@ -1,0 +1,25 @@
+meta {
+  name: 6. Update Touchpoint Status
+  type: http
+  seq: 6
+}
+
+patch {
+  url: {{baseUrl}}/ops/api/v1/touchpoints/1/status?status=INACTIVE
+  body: none
+  auth: inherit
+}
+
+params:query {
+  status: INACTIVE
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: TRADE
+  Authorization: Bearer {{access_token}}
+}
+
+settings {
+  encodeUrl: true
+}

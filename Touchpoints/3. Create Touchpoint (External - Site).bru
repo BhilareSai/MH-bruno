@@ -1,0 +1,40 @@
+meta {
+  name: 3. Create Touchpoint (External - Site)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/ops/api/v1/touchpoints
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: TRADE
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+    "email": "vendor@external.com",
+    "touchpointType": "EXTERNAL",
+    "mappingLevel": "SITE",
+    "groupName": "UltraTech",
+    "customerCode": "CUST001",
+    "functionalRole": "PRM",
+    "fullName": "Jane Smith",
+    "mobile": "9876543210",
+    "force": false
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

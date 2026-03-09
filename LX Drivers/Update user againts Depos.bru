@@ -1,0 +1,31 @@
+meta {
+  name: Update user againts Depos
+  type: http
+  seq: 12
+}
+
+put {
+  url: http://localhost:8080/ops/api/v1/lx/drivers/far-mapping/reassign-user
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: CEMENT
+}
+
+body:json {
+  {
+    "driverId": 123,
+    "depotCodes": [
+      "DEP001",
+      "DEP002"
+    ],
+    "newUserId": "EMP456"
+  }
+}
+
+settings {
+  encodeUrl: false
+}

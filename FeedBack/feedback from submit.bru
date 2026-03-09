@@ -1,0 +1,44 @@
+meta {
+  name: feedback from submit
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/submit
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  X-Feedback-Token: {{feedback_token}}
+}
+
+body:json {
+  {
+    "npsScore": 85,
+    "ratingAvailabilityDelivery": "BEST",
+    "ratingBillingPayment": "GOOD",
+    "ratingBrandImage": "BEST",
+    "ratingBrandingCommunication": "GOOD",
+    "ratingCementQuality": "BEST",
+    "ratingIncentivesSchemes": "BAD",
+    "ratingPackingQuality": "GOOD",
+    "ratingPricing": "BAD",
+    "ratingRelationshipActivities": "GOOD",
+    "ratingSalesService": "BEST",
+    "ratingTechnicalServices": "GOOD",
+    "openFeedback": "Great cement quality, but pricing could be more competitive."
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Submits customer feedback using the token from validate-customer API.
+  The X-Feedback-Token header auto-picks the token saved by the validate API.
+}

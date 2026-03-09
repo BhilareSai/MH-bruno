@@ -1,0 +1,29 @@
+meta {
+  name: 7. Import Touchpoints (Bulk)
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/ops/api/v1/touchpoints/import
+  body: multipartForm
+  auth: inherit
+}
+
+headers {
+  Business-Segment: TRADE
+  Authorization: Bearer {{access_token}}
+}
+
+body:multipart-form {
+  file: @file(/path/to/touchpoint-import.xlsx)
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

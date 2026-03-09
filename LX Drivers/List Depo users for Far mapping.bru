@@ -1,0 +1,22 @@
+meta {
+  name: List Depo users for Far mapping
+  type: http
+  seq: 14
+}
+
+get {
+  url: http://localhost:8080/ops/api/v1/lx/drivers/far-mapping/eligible-users?driverId=123&search=john&page=1&pageSize=20
+  body: none
+  auth: inherit
+}
+
+params:query {
+  driverId: 123
+  search: john
+  page: 1
+  pageSize: 20
+}
+
+settings {
+  encodeUrl: false
+}

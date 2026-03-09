@@ -1,0 +1,35 @@
+meta {
+  name: 2. Create Touchpoint (Internal - Group)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/ops/api/v1/touchpoints
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: KEY_ACCOUNTS
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+  {
+    "email": "sai55@gmail.com",
+    "touchpointType": "INTERNAL",
+    "mappingLevel": "GROUP",
+    "groupName": "900000A009"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8080
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

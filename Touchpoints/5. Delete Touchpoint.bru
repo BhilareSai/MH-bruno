@@ -1,0 +1,21 @@
+meta {
+  name: 5. Delete Touchpoint
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/ops/api/v1/touchpoints/1
+  body: none
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: TRADE
+  Authorization: Bearer {{access_token}}
+}
+
+settings {
+  encodeUrl: true
+}
