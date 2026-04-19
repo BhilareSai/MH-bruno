@@ -1,0 +1,68 @@
+meta {
+  name: List Communication Logs
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/data/api/v1/data/communication-logs/list
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+  channel: SMS
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "search": null,
+    "fromDate": "2026-04-01",
+    "toDate": "2026-04-19",
+    "channel": null,
+    "status": null,
+    "segment": null,
+    "templateType": null,
+    "groupName": null,
+    "siteName": null,
+    "uid": null,
+    "customerCode": null,
+    "mobileNumber": null,
+    "feedbackId": null,
+    "multiChannel": null,
+    "mode": null,
+    "customerSegment": null,
+    "subject": null,
+    "groupId": null,
+    "siteId": null,
+    "parentLogId": null,
+    "recipient": null,
+    "pageSize": 10,
+    "afterId": null,
+    "beforeId": null,
+    "last": null
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Cursor-paginated communication log list.
+
+  Headers:
+  - channel (REQUIRED): EMAIL | SMS | WHATSAPP
+  - Business-Segment: TRADE | KEY | NON_TRADE
+
+  Date range filters on triggered_at (inclusive both ends).
+  Searchable fields (via `search`): recipient, groupName, siteName, referenceId, uid, customerCode, customerNameSnapshot, mobileNumber, feedbackId.
+
+  Enum values:
+  - channel: EMAIL, SMS, WHATSAPP
+  - status: PENDING, SUCCESS, FAILED, RETRY
+  - segment: TRADE, KEY, NON_TRADE
+}

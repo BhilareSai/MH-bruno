@@ -1,0 +1,56 @@
+meta {
+  name: Export Communication Logs
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/data/api/v1/data/communication-logs/export?startTime=2026-04-01T00:00:00&endTime=2026-04-19T23:59:59
+  body: json
+  auth: inherit
+}
+
+params:query {
+  startTime: 2026-04-01T00:00:00
+  endTime: 2026-04-19T23:59:59
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+  channel: SMS
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "search": null,
+    "status": null,
+    "templateType": null,
+    "groupName": null,
+    "siteName": null,
+    "uid": null,
+    "customerCode": null,
+    "mobileNumber": null,
+    "feedbackId": null,
+    "mode": null,
+    "customerSegment": null,
+    "subject": null,
+    "groupId": null,
+    "siteId": null,
+    "parentLogId": null,
+    "recipient": null
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Exports communication logs as Excel (.xlsx).
+
+  startTime + endTime are MANDATORY (ISO-8601 LocalDateTime, query params).
+  Max 100,000 rows per export.
+  channel header is REQUIRED.
+}

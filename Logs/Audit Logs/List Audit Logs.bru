@@ -1,0 +1,49 @@
+meta {
+  name: List Audit Logs
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/data/api/v1/data/audit/logs/list?pageSize=10&fromDate=2026-04-17&toDate=2026-04-19
+  body: none
+  auth: inherit
+}
+
+params:query {
+  pageSize: 10
+  fromDate: 2026-04-17
+  toDate: 2026-04-19
+  ~search: huddle
+  ~module: HUDDLE
+  ~status: SUCCESS
+  ~lobCode: CEMENT
+  ~user: john doe
+  ~role: ADMIN
+  ~actionPerformed: CREATE
+  ~afterId: 123456
+  ~beforeId: 123500
+  ~last: false
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Cursor-paginated audit log list.
+  
+  Pagination:
+  - First page: send only pageSize
+  - Next page: pageSize + afterId (id of last row)
+  - Previous page: pageSize + beforeId (id of first row)
+  - Last page: pageSize + last=true
+  
+  Searchable fields (via `search`): userName, role, module, action, actionSummary, status, remarks, entityType, entityId.
+}

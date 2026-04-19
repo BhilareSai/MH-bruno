@@ -1,0 +1,42 @@
+meta {
+  name: List BPO Logs
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/data/api/v1/data/bpo/logs/list?pageSize=10
+  body: none
+  auth: inherit
+}
+
+params:query {
+  pageSize: 10
+  ~search: raj
+  ~fromDate: 2026-04-01
+  ~toDate: 2026-04-19
+  ~customerSegment: TRADE
+  ~lobCode: CEMENT
+  ~status: SUCCESS
+  ~sapOrderId: SO-1234567
+  ~diNumber: DI-998877
+  ~afterId: 123456
+  ~beforeId: 123500
+  ~last: false
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Cursor-paginated BPO log list.
+
+  Date range filters on activity_date (inclusive both ends).
+  Searchable fields (via `search`): customerName, agentName, uid.
+}

@@ -1,0 +1,27 @@
+meta {
+  name: Retry Communication
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/data/api/v1/data/communication-logs/retry/1
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Triggers a retry for a FAILED communication log.
+
+  Path param logId = id of the FAILED log to retry.
+  Creates a new log entry (status=PENDING) with parentLogId pointing to the original.
+}

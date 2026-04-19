@@ -1,0 +1,32 @@
+meta {
+  name: BPO Filter Options
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/data/api/v1/data/bpo/filter-options?field=status&page=1&size=5
+  body: none
+  auth: inherit
+}
+
+params:query {
+  field: status
+  page: 1
+  size: 5
+  ~search:
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Distinct values for BPO dropdowns.
+  Supported fields: agentName, typeOfCall, callType, segment, sapOrderId, diNumber, customerCategory, lob, status.
+}

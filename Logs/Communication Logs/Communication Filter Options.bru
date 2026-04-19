@@ -1,0 +1,36 @@
+meta {
+  name: Communication Filter Options
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/data/api/v1/data/communication-logs/filters?field=status&page=1&size=10
+  body: none
+  auth: inherit
+}
+
+params:query {
+  field: status
+  page: 1
+  size: 10
+  ~search:
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+  channel: SMS
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Distinct values for communication log dropdowns.
+
+  Supported fields: templateType, groupName, siteName, status, channel, mode, recipient, mobileNumber, customerCode, uid, feedbackId, customerSegment, subject, groupId, siteId, parentLogId.
+
+  channel header is REQUIRED.
+}

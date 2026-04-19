@@ -1,0 +1,17 @@
+meta {
+  name: Logs
+  seq: 13
+}
+
+auth {
+  mode: inherit
+}
+
+docs {
+  Logs collection — Audit / BPO / Communication.
+  All requests go through the API Gateway at {{base_url}}.
+
+  Auth: Bearer {{access_token}}
+  Some APIs require Business-Segment or channel headers.
+  Pagination is cursor-based: use pageSize + afterId / beforeId / last.
+}

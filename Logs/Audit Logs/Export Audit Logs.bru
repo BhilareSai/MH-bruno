@@ -1,0 +1,36 @@
+meta {
+  name: Export Audit Logs
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/data/api/v1/data/audit/logs/export?startTime=2026-04-01T00:00:00&endTime=2026-04-19T23:59:59
+  body: none
+  auth: inherit
+}
+
+params:query {
+  startTime: 2026-04-01T00:00:00
+  endTime: 2026-04-19T23:59:59
+  ~search: huddle
+  ~module: HUDDLE
+  ~status: SUCCESS
+  ~lobCode: CEMENT
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Exports audit logs as Excel (.xlsx).
+
+  startTime + endTime are MANDATORY (ISO-8601 LocalDateTime).
+  Max 100,000 rows per export.
+}

@@ -1,0 +1,38 @@
+meta {
+  name: Export BPO Logs
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/data/api/v1/data/bpo/logs/export?startTime=2026-04-01T00:00:00&endTime=2026-04-19T23:59:59
+  body: none
+  auth: inherit
+}
+
+params:query {
+  startTime: 2026-04-01T00:00:00
+  endTime: 2026-04-19T23:59:59
+  ~search: raj
+  ~customerSegment: TRADE
+  ~lobCode: CEMENT
+  ~status: SUCCESS
+  ~sapOrderId: SO-1234567
+  ~diNumber: DI-998877
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Exports BPO logs as Excel (.xlsx).
+
+  startTime + endTime are MANDATORY (ISO-8601 LocalDateTime).
+  Max 100,000 rows per export.
+}

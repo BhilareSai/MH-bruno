@@ -1,0 +1,29 @@
+meta {
+  name: Audit Action Summary
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/data/api/v1/data/audit/logs/action-summary?auditLogId=1
+  body: none
+  auth: inherit
+}
+
+params:query {
+  auditLogId: 1
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Returns old/new values for a single audit entry.
+  Use when user clicks "View Details" on a row where hasDetails=true.
+}

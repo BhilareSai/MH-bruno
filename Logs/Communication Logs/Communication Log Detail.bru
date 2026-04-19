@@ -1,0 +1,25 @@
+meta {
+  name: Communication Log Detail
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{base_url}}/data/api/v1/data/communication-logs/1
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Returns full log entry including payload + retry chain.
+  Use when user clicks a row to view full message body/headers.
+}
