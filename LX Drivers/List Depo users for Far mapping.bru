@@ -5,18 +5,24 @@ meta {
 }
 
 get {
-  url: http://localhost:8080/ops/api/v1/lx/drivers/far-mapping/eligible-users?driverId=123&search=john&page=1&pageSize=20
+  url: http://192.168.0.109:8080/ops/api/v1/lx/drivers/far-mapping/eligible-users?driverId=1476578125734293504&search&page=1&pageSize=20
   body: none
   auth: inherit
 }
 
 params:query {
-  driverId: 123
-  search: john
+  driverId: 1476578125734293504
+  search: 
   page: 1
   pageSize: 20
 }
 
+headers {
+  Business-Segment: Trade
+  Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzaWRkZXNoMUBnbWFpbC5jb20iLCJpc3MiOiJtaC1wbGF0Zm9ybSIsImF1ZCI6WyJtaC1zZXJ2aWNlcyJdLCJpYXQiOjE3NzMwNDE5MTQsImV4cCI6MTc3MzA0MzcxNCwidXNlcklkIjoxNDczOTUzMDI1Mjc0MDY4OTkyLCJlbWFpbCI6InNpZGRlc2gxQGdtYWlsLmNvbSIsImVtcGxveWVlSWQiOiIxMjFqZmpqIiwiZnVsbE5hbWUiOiJzaWRkZXNoMSIsInVzZXJUeXBlIjoiVVRDTF9FTVBMT1lFRSIsInNlZ21lbnQiOiJUUkFERSIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOlsiVE1UQ1MiXX0.Dpm4k4yTj8SwFwYjulKYwLjQCAc2ODyppOQL_axkAII0wCkOxTTbJITqckjCp4dQ
+}
+
 settings {
   encodeUrl: false
+  timeout: 0
 }

@@ -5,13 +5,13 @@ meta {
 }
 
 get {
-  url: {{base_url}}/ops/api/v1/huddles/view-all?type=PENDING&page=0&size=10
+  url: {{base_url}}/ops/api/v1/huddles/view-all?type=ongoing&page=0&size=10
   body: none
   auth: inherit
 }
 
 params:query {
-  type: PENDING
+  type: ongoing
   page: 0
   size: 10
   ~region: NORTH
@@ -21,6 +21,7 @@ params:query {
 
 headers {
   Authorization: Bearer {{access_token}}
+  Business-Segment: Key
 }
 
 settings {

@@ -5,14 +5,15 @@ meta {
 }
 
 put {
-  url: http://localhost:8080/ops/api/v1/lx/drivers/far-mapping/reassign-user
+  url: http://192.168.0.109:8080/ops/api/v1/lx/drivers/far-mapping/reassign-user
   body: json
   auth: inherit
 }
 
 headers {
   Content-Type: application/json
-  Business-Segment: CEMENT
+  Business-Segment: Trade
+  Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzaWRkZXNoMUBnbWFpbC5jb20iLCJpc3MiOiJtaC1wbGF0Zm9ybSIsImF1ZCI6WyJtaC1zZXJ2aWNlcyJdLCJpYXQiOjE3NzMwNDQwNDksImV4cCI6MTc3MzA0NTg0OSwidXNlcklkIjoxNDczOTUzMDI1Mjc0MDY4OTkyLCJlbWFpbCI6InNpZGRlc2gxQGdtYWlsLmNvbSIsImVtcGxveWVlSWQiOiIxMjFqZmpqIiwiZnVsbE5hbWUiOiJzaWRkZXNoMSIsInVzZXJUeXBlIjoiVVRDTF9FTVBMT1lFRSIsInNlZ21lbnQiOiJUUkFERSIsInJvbGVzIjpbXSwicGVybWlzc2lvbnMiOlsiVE1UQ1MiXX0.640cFScwCfnfUEXOm7XQDf6GEcHmhtRVaDPOhNaalp7oWm18JLNLxpQp7PPt1qy3
 }
 
 body:json {
@@ -28,4 +29,5 @@ body:json {
 
 settings {
   encodeUrl: false
+  timeout: 0
 }

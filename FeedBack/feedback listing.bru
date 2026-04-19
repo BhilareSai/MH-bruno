@@ -1,0 +1,27 @@
+meta {
+  name: feedback listing
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/admin/api/v1/feedback/list?page=1&size=20&search=kutumb
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 1
+  size: 20
+  search: kutumb
+}
+
+headers {
+  authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzYWk1NUBnbWFpbC5jb20iLCJpc3MiOiJtaC1wbGF0Zm9ybSIsImF1ZCI6WyJtaC1zZXJ2aWNlcyJdLCJpYXQiOjE3NzMwODQ2MzksImV4cCI6MTc3MzA4NjQzOSwidXNlcklkIjoxNDgwMTI0MjE2MjY5OTAxODI0LCJlbWFpbCI6InNhaTU1QGdtYWlsLmNvbSIsImZ1bGxOYW1lIjoiU2FpNTUiLCJ1c2VyVHlwZSI6IlVUQ0xfRU1QTE9ZRUUiLCJzZWdtZW50IjoiS2V5Iiwicm9sZXMiOlsiQlVTSU5FU1NfQURNSU4iXSwicGVybWlzc2lvbnMiOlsiVE1UQ1MiXX0.bp0LbwPamm3PGHbTWxqOOZj2GLZu08fzxjshQ_AgK1svHAf1Tpog5GQZsE_UFPNY
+  business-segment: Trade
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}

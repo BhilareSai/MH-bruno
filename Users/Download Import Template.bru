@@ -1,0 +1,25 @@
+meta {
+  name: Download Import Template
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/api/v1/admin/users/import/template
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Downloads the CSV import template file (user-import-template.csv).
+  The file contains the EMAIL column header plus two sample rows.
+  Use this to let users download the template before bulk importing.
+}

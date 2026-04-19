@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: http://localhost:8080/ops/api/v1/lx/drivers/far-mapping/unassigned-depots?driverId=1476578125734293504&userId=l1ds13sty737333&page=1&pageSize=20
+  url: http://192.168.0.109:8080/ops/api/v1/lx/drivers/far-mapping/unassigned-depots?driverId=1476578125734293504&userId=l1ds13sty737333&page=1&pageSize=20&search
   body: none
   auth: inherit
 }
@@ -15,7 +15,7 @@ params:query {
   userId: l1ds13sty737333
   page: 1
   pageSize: 20
-  ~search: 
+  search: 
 }
 
 headers {
@@ -26,6 +26,7 @@ headers {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {

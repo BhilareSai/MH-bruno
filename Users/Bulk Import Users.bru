@@ -1,0 +1,49 @@
+meta {
+  name: Bulk Import Users
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/admin/users/import
+  body: multipartForm
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: key
+}
+
+body:multipart-form {
+  file: @file(C:\Users\SiddeshPansare\Downloads\b740e6ab-0163-4f95-a51a-058149e801a7.xlsx)
+}
+
+body:file {
+  file: @file(C:\Users\SiddeshPansare\Downloads\b740e6ab-0163-4f95-a51a-058149e801a7.xlsx) @contentType(application/vnd.openxmlformats-officedocument.spreadsheetml.sheet)
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Bulk import users from a CSV file (multipart/form-data).
+  
+  Request:
+  - file: CSV file with an EMAIL column header (max 300 rows)
+  
+  Validations per row (same as single transfer):
+  - User must exist in UTCL_USER
+  - User must NOT already exist in MH_USERS
+  - Segment must match
+  - Geography resolution must succeed
+  
+  Response:
+  - successCount: number of successfully imported users
+  - failureCount: number of failed rows
+  - errors: per-row error details (rowNumber, email, reason)
+  
+  Use the "Download Import Template" request to get the CSV template first.
+}

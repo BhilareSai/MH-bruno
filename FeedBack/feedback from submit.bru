@@ -13,11 +13,12 @@ post {
 headers {
   Content-Type: application/json
   X-Feedback-Token: {{feedback_token}}
+  ~Business-Segment: Trade
 }
 
 body:json {
   {
-    "npsScore": 85,
+    "npsScore": 95,
     "ratingAvailabilityDelivery": "BEST",
     "ratingBillingPayment": "GOOD",
     "ratingBrandImage": "BEST",
@@ -41,4 +42,8 @@ settings {
 docs {
   Submits customer feedback using the token from validate-customer API.
   The X-Feedback-Token header auto-picks the token saved by the validate API.
+  
+  
+  
+  									
 }

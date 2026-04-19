@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{base_url}}/ops/api/v1/lx/drivers/get-all-far-mapping?driverId=1476578125734293504&pageSize=900&sortBy=ID&sortDirection=DESC
+  url: {{base_url}}/ops/api/v1/lx/drivers/get-all-far-mapping?driverId=1476578125734293504&pageSize=900&sortBy=ID&sortDirection=DESC&roleCode=FAR_ROLE_01&userId=l1ds13sty737333&zoneCode&regionCode&depotCode&lobCode=HOME_LOAN&status=ACTIVE&search&page
   body: none
   auth: inherit
 }
@@ -15,15 +15,15 @@ params:query {
   pageSize: 900
   sortBy: ID
   sortDirection: DESC
-  ~roleCode: FAR_ROLE_01
-  ~userId: l1ds13sty737333
-  ~zoneCode: 
-  ~regionCode: 
-  ~depotCode: 
-  ~lobCode: HOME_LOAN
-  ~status: ACTIVE
-  ~search: 
-  ~page: 
+  roleCode: FAR_ROLE_01
+  userId: l1ds13sty737333
+  zoneCode: 
+  regionCode: 
+  depotCode: 
+  lobCode: HOME_LOAN
+  status: ACTIVE
+  search: 
+  page: 
 }
 
 headers {
@@ -34,6 +34,7 @@ headers {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 example {
