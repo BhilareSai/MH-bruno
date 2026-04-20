@@ -5,15 +5,17 @@ meta {
 }
 
 get {
-  url: {{base_url}}/data/api/v1/data/audit/logs/list?pageSize=10&fromDate=2026-04-17&toDate=2026-04-19
+  url: {{base_url}}/data/api/v1/data/audit/logs/list?pageSize=10&cursor=60907&page=5
   body: none
   auth: inherit
 }
 
 params:query {
   pageSize: 10
-  fromDate: 2026-04-17
-  toDate: 2026-04-19
+  cursor: 60907
+  page: 5
+  ~fromDate: 2026-04-17
+  ~toDate: 2026-04-19
   ~search: huddle
   ~module: HUDDLE
   ~status: SUCCESS
@@ -21,7 +23,7 @@ params:query {
   ~user: john doe
   ~role: ADMIN
   ~actionPerformed: CREATE
-  ~afterId: 123456
+  ~afterId: 61025
   ~beforeId: 123500
   ~last: false
 }

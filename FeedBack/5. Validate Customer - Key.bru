@@ -1,0 +1,51 @@
+meta {
+  name: 5. Validate Customer - Key
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/key/validate-customer
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "mobile": "9200000000",
+    "customerCode": "610102A024",
+    "surveyId": "SURVEY-2026-0001",
+    "feedbackChannel": "WhatsApp"
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json.data && json.data.feedbackToken) {
+      bru.setVar('feedback_token', json.data.feedbackToken);
+      console.log('feedback_token saved:', json.data.feedbackToken);
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Step 2 of the KEY flow.
+  Verifies the mobile belongs to a touchpoint at the site (customerCode = site code),
+  re-checks dedup, issues a feedback token.
+
+  Outcomes:
+    200 → { feedbackToken, customerCode (= touchpoint.id), customerName (= touchpoint name),
+            siteId, siteName, groupId, groupName, role, lob, remainingSubmissions }
+    404 CUSTOMER_NOT_FOUND → site invalid OR mobile not mapped to this site
+    409 FEEDBACK_ALREADY_SUBMITTED
+    400 INVALID_FEEDBACK_CHANNEL
+    429 FEEDBACK_LIMIT_EXCEEDED
+}

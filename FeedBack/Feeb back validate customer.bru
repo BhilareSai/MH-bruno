@@ -1,23 +1,25 @@
 meta {
-  name: Feeb back validate customer
+  name: 4. Validate Customer - Trade
   type: http
-  seq: 1
+  seq: 4
 }
 
 post {
-  url: {{base_url}}/admin/api/v1/feedback/validate-customer
+  url: {{base_url}}/admin/api/v1/feedback/trade/validate-customer
   body: json
   auth: inherit
 }
 
 headers {
   Content-Type: application/json
-  : 
 }
 
 body:json {
   {
-    "mobile": "9216338494"
+    "mobile": "7607777750",
+    "customerCode": "860101Z009",
+    "surveyId": "SURVEY-2026-0001",
+    "feedbackChannel": "SMS"
   }
 }
 
@@ -35,6 +37,29 @@ settings {
 }
 
 docs {
-  Validates a customer for feedback submission.
-  Saves feedback_token for use in the submit API.
+  Step 2 of the TRADE flow (after Validate Link).
+  Verifies the mobile belongs to the customer, re-checks dedup, then issues a
+  feedback token. Token carries surveyId + channel (anti-tamper).
+
+  Input:
+    - mobile: 10-digit customer mobile            (REQUIRED)
+    - surveyId: from the link                     (REQUIRED)
+    - feedbackChannel: SMS | Email | UCC          (REQUIRED)
+    - customerCode: from the link                 (OPTIONAL for TRADE)
+        When present: backend loads MH_CUSTOMER by code + verifies mobile.
+        When absent:  fallback resolves by mobile → PAN → LOB-priority
+                      (CEMENT > BPD > UBS) and derives the customerCode.
+
+  Outcomes:
+    200 → { feedbackToken, customerName, customerCode, remainingSubmissions }
+          customerCode in the response is the one stored (derived if fallback).
+    404 CUSTOMER_NOT_FOUND → customerCode invalid OR mobile doesn't match
+                              OR (in fallback) no MH_CUSTOMER row for the mobile
+    409 FEEDBACK_ALREADY_SUBMITTED → already filled for this survey
+    400 INVALID_FEEDBACK_CHANNEL
+    429 FEEDBACK_LIMIT_EXCEEDED → 5/day hit
+
+  Saves feedback_token into the collection var for Submit.
+
+  NOTE: KEY / NON_TRADE segments require customerCode — no fallback available.
 }

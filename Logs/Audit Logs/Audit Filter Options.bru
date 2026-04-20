@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{base_url}}/data/api/v1/data/audit/filter-options?field=module&page=1&size=5
+  url: {{base_url}}/data/api/v1/data/audit/filter-options?field=module&page=1&size=5&search=HUD
   body: none
   auth: inherit
 }
@@ -14,7 +14,7 @@ params:query {
   field: module
   page: 1
   size: 5
-  ~search: HUD
+  search: HUD
 }
 
 headers {
@@ -24,6 +24,7 @@ headers {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {

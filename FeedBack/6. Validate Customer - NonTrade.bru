@@ -1,0 +1,44 @@
+meta {
+  name: 6. Validate Customer - NonTrade
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/non-trade/validate-customer
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "mobile": "8300000000",
+    "customerCode": "630102B069",
+    "surveyId": "SURVEY-2026-0001",
+    "feedbackChannel": "Email"
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json.data && json.data.feedbackToken) {
+      bru.setVar('feedback_token', json.data.feedbackToken);
+      console.log('feedback_token saved:', json.data.feedbackToken);
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Step 2 of the NON_TRADE flow.
+  Same shape as KEY validate-customer, targets NONTRADE touchpoint table.
+
+  Outcomes: same as KEY validate-customer.
+}

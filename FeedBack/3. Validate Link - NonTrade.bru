@@ -1,0 +1,47 @@
+meta {
+  name: 3. Validate Link - NonTrade
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/non-trade/validate-link
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "customerCode": "630102B069",
+    "surveyId": "SURVEY-2026-0001",
+    "feedbackChannel": "Email"
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Page-load pre-check for the NON_TRADE feedback form.
+  Frontend calls this ONLY when the link carries customerCode (site code).
+
+  Input:
+    - customerCode    REQUIRED — site code (MH_TOUCHPOINT_MAPPING.CUSTOMER_CODE
+                                 with BUSINESS_SEGMENT='NONTRADE')
+    - surveyId        REQUIRED — every link carries one; dedup runs every call
+    - feedbackChannel OPTIONAL — WhatsApp | SMS | Email | UCC
+
+  Outcomes:
+    200 → site exists AND no prior submission for (site, survey)
+          { customerName, siteId, siteName, groupId, groupName, lob }
+    404 CUSTOMER_NOT_FOUND          → site not found for NONTRADE segment
+    409 FEEDBACK_ALREADY_SUBMITTED  → already filled
+    400 INVALID_FEEDBACK_CHANNEL    → channel supplied AND unknown
+    400 validation error            → customerCode or surveyId missing
+}

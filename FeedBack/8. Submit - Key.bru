@@ -1,0 +1,47 @@
+meta {
+  name: 8. Submit - Key
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/key/submit
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  X-Feedback-Token: {{feedback_token}}
+}
+
+body:json {
+  {
+    "npsScore": 9,
+    "l1Driver": "ORDERING_PROCESS",
+    "l2Driver": "ON_TIME_ORDER_SCHEDULE_CONFIRMATION",
+    "openFeedback": "Great responsiveness from the team."
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Step 3 of the KEY flow.
+
+  - Uses the token from Validate Customer - Key.
+  - surveyId + feedbackChannel come from the token (anti-tamper).
+  - L1 required. L2 required only when npsScore >= 9 (promoters); optional otherwise.
+  - L1/L2 must be a valid pair from /feedback/drivers.
+
+  Outcomes:
+    201 → { feedbackId, customerCode (= touchpoint.id), remainingSubmissions }
+    400 INVALID_FEEDBACK_DRIVER → bad L1, bad pair, or L2 missing for NPS >= 9
+    401 INVALID_FEEDBACK_TOKEN
+    403 FEEDBACK_SEGMENT_MISMATCH
+    409 FEEDBACK_ALREADY_SUBMITTED
+    429 FEEDBACK_LIMIT_EXCEEDED
+}

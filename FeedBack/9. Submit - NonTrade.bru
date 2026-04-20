@@ -1,0 +1,36 @@
+meta {
+  name: 9. Submit - NonTrade
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/non-trade/submit
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  X-Feedback-Token: {{feedback_token}}
+}
+
+body:json {
+  {
+    "npsScore": 7,
+    "l1Driver": "DELIVERY_EFFICIENCY",
+    "l2Driver": "ON_TIME_DELIVERY",
+    "openFeedback": "Delivery was on time but packaging could improve."
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Step 3 of the NON_TRADE flow. Same shape as KEY submit, writes to NONTRADE table.
+
+  Outcomes: same as KEY submit.
+}

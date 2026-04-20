@@ -1,0 +1,47 @@
+meta {
+  name: 1. Validate Link - Trade
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/trade/validate-link
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "customerCode": "860101Z009",
+    "surveyId": "SURVEY-2026-0001",
+    "feedbackChannel": "SMS"
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Page-load pre-check for the TRADE feedback form.
+  Frontend calls this ONLY when the link carries customerCode.
+
+  Input:
+    - customerCode    REQUIRED (MH_CUSTOMER.CUSTOMER_CODE)
+    - surveyId        REQUIRED — every link carries one; dedup runs every call
+    - feedbackChannel OPTIONAL — when present, backend validates channel vs segment
+                                  (TRADE allows SMS | Email | UCC, NOT WhatsApp)
+
+  Outcomes:
+    200 → customer exists AND no prior submission for this (customer, survey)
+          { customerName, lob }
+    404 CUSTOMER_NOT_FOUND          → invalid customerCode
+    409 FEEDBACK_ALREADY_SUBMITTED  → already filled; message = prior channel
+    400 INVALID_FEEDBACK_CHANNEL    → channel supplied AND not allowed for TRADE
+    400 validation error            → customerCode or surveyId missing
+}

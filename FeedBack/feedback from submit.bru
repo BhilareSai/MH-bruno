@@ -1,11 +1,11 @@
 meta {
-  name: feedback from submit
+  name: 7. Submit - Trade
   type: http
-  seq: 2
+  seq: 7
 }
 
 post {
-  url: {{base_url}}/admin/api/v1/feedback/submit
+  url: {{base_url}}/admin/api/v1/feedback/trade/submit
   body: json
   auth: inherit
 }
@@ -13,24 +13,23 @@ post {
 headers {
   Content-Type: application/json
   X-Feedback-Token: {{feedback_token}}
-  ~Business-Segment: Trade
 }
 
 body:json {
   {
-    "npsScore": 95,
-    "ratingAvailabilityDelivery": "BEST",
+    "npsScore": 8,
+    "ratingAvailabilityDelivery": "GOOD",
     "ratingBillingPayment": "GOOD",
     "ratingBrandImage": "BEST",
     "ratingBrandingCommunication": "GOOD",
     "ratingCementQuality": "BEST",
-    "ratingIncentivesSchemes": "BAD",
-    "ratingPackingQuality": "GOOD",
+    "ratingIncentivesSchemes": "GOOD",
+    "ratingPackingQuality": "BEST",
     "ratingPricing": "BAD",
     "ratingRelationshipActivities": "GOOD",
     "ratingSalesService": "BEST",
     "ratingTechnicalServices": "GOOD",
-    "openFeedback": "Great cement quality, but pricing could be more competitive."
+    "openFeedback": "Great cement quality, pricing could be more competitive."
   }
 }
 
@@ -40,10 +39,17 @@ settings {
 }
 
 docs {
-  Submits customer feedback using the token from validate-customer API.
-  The X-Feedback-Token header auto-picks the token saved by the validate API.
-  
-  
-  
-  									
+  Step 3 of the TRADE flow — persist the feedback.
+
+  - The X-Feedback-Token header uses the token saved by the validate-customer API.
+  - surveyId + feedbackChannel are read from the TOKEN (anti-tamper).
+    Any value sent in the body is silently ignored.
+  - Ratings enum strictly: BEST | GOOD | BAD (not EXCELLENT/AVERAGE).
+
+  Outcomes:
+    201 → { feedbackId, customerCode, remainingSubmissions }
+    401 INVALID_FEEDBACK_TOKEN → token missing / expired / reused
+    403 FEEDBACK_SEGMENT_MISMATCH → token from a different segment
+    409 FEEDBACK_ALREADY_SUBMITTED → race-protection dedup caught a parallel submit
+    429 FEEDBACK_LIMIT_EXCEEDED
 }

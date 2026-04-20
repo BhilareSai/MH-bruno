@@ -1,0 +1,47 @@
+meta {
+  name: 2. Validate Link - Key
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/key/validate-link
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "customerCode": "610102A024",
+    "surveyId": "SURVEY-2026-0001",
+    "feedbackChannel": "WhatsApp"
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Page-load pre-check for the KEY feedback form.
+  Frontend calls this ONLY when the link carries customerCode (site code).
+
+  Input:
+    - customerCode    REQUIRED — site code (MH_TOUCHPOINT_MAPPING.CUSTOMER_CODE
+                                 with BUSINESS_SEGMENT='KEY')
+    - surveyId        REQUIRED — every link carries one; dedup runs every call
+    - feedbackChannel OPTIONAL — WhatsApp | SMS | Email | UCC
+
+  Outcomes:
+    200 → site exists AND no prior submission for (site, survey)
+          { customerName, siteId, siteName, groupId, groupName, lob }
+    404 CUSTOMER_NOT_FOUND          → site not found for KEY segment
+    409 FEEDBACK_ALREADY_SUBMITTED  → site already filled this survey
+    400 INVALID_FEEDBACK_CHANNEL    → channel supplied AND unknown
+    400 validation error            → customerCode or surveyId missing
+}
