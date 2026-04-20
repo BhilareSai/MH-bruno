@@ -44,7 +44,9 @@ docs {
   Outcomes:
     200 → { feedbackToken, customerCode (= touchpoint.id), customerName (= touchpoint name),
             siteId, siteName, groupId, groupName, role, lob, remainingSubmissions }
-    404 CUSTOMER_NOT_FOUND → site invalid OR mobile not mapped to this site
+    404 CUSTOMER_NOT_FOUND          → site invalid for KEY segment
+    400 INVALID_MOBILE_FOR_CUSTOMER → mobile not mapped to any KEY touchpoint
+                                      OR mapped but at a different site
     409 FEEDBACK_ALREADY_SUBMITTED
     400 INVALID_FEEDBACK_CHANNEL
     429 FEEDBACK_LIMIT_EXCEEDED

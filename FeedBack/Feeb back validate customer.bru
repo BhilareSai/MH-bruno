@@ -53,11 +53,13 @@ docs {
   Outcomes:
     200 → { feedbackToken, customerName, customerCode, remainingSubmissions }
           customerCode in the response is the one stored (derived if fallback).
-    404 CUSTOMER_NOT_FOUND → customerCode invalid OR mobile doesn't match
-                              OR (in fallback) no MH_CUSTOMER row for the mobile
-    409 FEEDBACK_ALREADY_SUBMITTED → already filled for this survey
+    404 CUSTOMER_NOT_FOUND         → customerCode doesn't exist in MH_CUSTOMER
+                                      OR (in fallback) no MH_CUSTOMER row for the mobile
+    400 INVALID_MOBILE_FOR_CUSTOMER → customerCode is valid but mobile doesn't match
+                                      that customer
+    409 FEEDBACK_ALREADY_SUBMITTED  → already filled for this survey
     400 INVALID_FEEDBACK_CHANNEL
-    429 FEEDBACK_LIMIT_EXCEEDED → 5/day hit
+    429 FEEDBACK_LIMIT_EXCEEDED    → 5/day hit
 
   Saves feedback_token into the collection var for Submit.
 
