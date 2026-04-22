@@ -1,0 +1,63 @@
+meta {
+  name: 10. Request Callback (Calling List)
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/calling-list
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Business-Segment: TRADE
+  X-Feedback-Token: {{feedback_token}}
+}
+
+body:json {
+  {
+    "preferredCallDate": "2026-04-25",
+    "preferredCallTimeFrom": "10:00",
+    "preferredCallTimeTo": "13:00",
+    "remarks": "Please call before 1 pm"
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Customer callback-request API ("Get a call" on the feedback form).
+
+  Headers:
+    - Business-Segment: TRADE | KEY | NONTRADE   (REQUIRED — must match the token's segment)
+    - X-Feedback-Token: from validate-customer   (REQUIRED — token is NOT consumed; user
+                                                  can still submit feedback after this call)
+
+  Body (all JSON fields):
+    - preferredCallDate:     REQUIRED (YYYY-MM-DD, today or future)
+    - preferredCallTimeFrom: REQUIRED (HH:mm, 24h)
+    - preferredCallTimeTo:   REQUIRED (HH:mm, 24h; >= from)
+    - remarks:               OPTIONAL free text, up to 2000 chars
+
+  Dedup:
+    - TRADE: one callback per (customerCode, surveyId) for this segment
+    - KEY/NONTRADE: one callback per (siteId, surveyId) for this segment
+
+  Outcomes:
+    201 → { callingListId, status: "PENDING" }
+    400 FEEDBACK_VALIDATION_ERROR   → from > to, or date in the past
+    400 validation error            → missing / bad-format fields
+    401 INVALID_FEEDBACK_TOKEN      → token missing / expired / used
+    403 FEEDBACK_SEGMENT_MISMATCH   → header ≠ token.segment
+    409 FEEDBACK_ALREADY_SUBMITTED  → dedup hit (message = prior channel + date)
+    404 CUSTOMER_NOT_FOUND          → identity disappeared between validate and callback
+
+  NOTE: Calling this API does NOT invalidate the feedback token. The user can
+  request a callback and then still submit feedback — submit is the action that
+  consumes the token.
+}

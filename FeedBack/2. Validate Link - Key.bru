@@ -38,10 +38,11 @@ docs {
     - feedbackChannel OPTIONAL — WhatsApp | SMS | Email | UCC
 
   Outcomes:
-    200 → site exists AND no prior submission for (site, survey)
-          { customerName, siteId, siteName, groupId, groupName, lob }
+    200 → site exists. Returned even if ONE of feedback/callback is already recorded
+          (the user can still do the other).  { customerName, siteId, siteName, groupId, groupName, lob }
     404 CUSTOMER_NOT_FOUND          → site not found for KEY segment
-    409 FEEDBACK_ALREADY_SUBMITTED  → site already filled this survey
+    409 FEEDBACK_ALREADY_SUBMITTED  → BOTH feedback AND callback already recorded for
+                                      (site, survey). Nothing left to do.
     400 INVALID_FEEDBACK_CHANNEL    → channel supplied AND unknown
     400 validation error            → customerCode or surveyId missing
 }

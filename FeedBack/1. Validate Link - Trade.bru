@@ -38,10 +38,11 @@ docs {
                                   (TRADE allows SMS | Email | UCC, NOT WhatsApp)
 
   Outcomes:
-    200 → customer exists AND no prior submission for this (customer, survey)
-          { customerName, lob }
+    200 → customer exists. Returned even if ONE of feedback/callback has been filled
+          — user can still do the other action.  { customerName, lob }
     404 CUSTOMER_NOT_FOUND          → invalid customerCode
-    409 FEEDBACK_ALREADY_SUBMITTED  → already filled; message = prior channel
+    409 FEEDBACK_ALREADY_SUBMITTED  → BOTH feedback AND callback already recorded
+                                      (nothing left to do). Message = prior channel + date.
     400 INVALID_FEEDBACK_CHANNEL    → channel supplied AND not allowed for TRADE
     400 validation error            → customerCode or surveyId missing
 }
