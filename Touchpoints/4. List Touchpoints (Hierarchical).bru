@@ -5,9 +5,16 @@ meta {
 }
 
 get {
-  url: {{baseUrl}}/ops/api/v1/touchpoints?
+  url: http://localhost:8080/ops/api/v1/touchpoints?page=1&pageSize=5&search=AFCon
   body: none
   auth: inherit
+}
+
+params:query {
+  page: 1
+  pageSize: 5
+  search: AFCon
+  ~surveyEligible: true
 }
 
 headers {
