@@ -5,15 +5,16 @@ meta {
 }
 
 get {
-  url: {{base_url}}/admin/api/v1/feedback/list?page=1&size=20&search=kutumb
+  url: {{base_url}}/admin/api/v1/feedback/list?page=1&pageSize=20
   body: none
   auth: inherit
 }
 
 params:query {
   page: 1
-  size: 20
-  search: kutumb
+  pageSize: 20
+  ~cursor:
+  ~search: kutumb
 }
 
 headers {
