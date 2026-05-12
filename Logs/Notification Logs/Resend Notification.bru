@@ -1,0 +1,25 @@
+meta {
+  name: Resend Notification
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/app/data/api/v1/data/notification-logs/resend/1
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Triggers an immediate resend for a notification log entry.
+  Creates a new attempt and returns status.
+}

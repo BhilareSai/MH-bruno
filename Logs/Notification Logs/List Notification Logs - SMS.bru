@@ -1,0 +1,70 @@
+meta {
+  name: List Notification Logs - SMS
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/app/data/api/v1/data/notification-logs/list
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+  channel: SMS
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "search": null,
+    "fromDate": "2026-04-01",
+    "toDate": "2026-05-12",
+    "businessSegment": "TRADE",
+    "pageSize": 10,
+    "cursor": null,
+    "page": 1,
+    "ids": null,
+    "statuses": null,
+    "feedbackIds": null,
+    "mobileNumbers": null,
+    "customerCodes": null,
+    "customerNames": null,
+    "modes": null,
+    "customerSegments": null
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Cursor-paginated notification log list (SMS channel).
+
+  Headers:
+  - channel (REQUIRED): SMS
+  - Business-Segment: TRADE | KEY | NON_TRADE
+
+  TRADE segment columns: Log ID, Feedback ID, Sent On, Mobile Number, Customer Code, Customer Name, Mode, Segment
+  Other segments add: Group ID, Group Name, Site ID, Site Name, Error (no Customer Name / Segment)
+
+  Multi-select filters (send as arrays):
+  - ids: [1, 2, 3]
+  - statuses: ["SENT", "FAILED"]
+  - feedbackIds: ["12345"]
+  - mobileNumbers: ["9876543210"]
+  - customerCodes: ["CUST001"]
+  - customerNames: ["John"]
+  - modes: ["SMS", "WHATSAPP"]
+  - customerSegments: ["CEMENT", "UBS"]
+
+  Pagination:
+  - First page: send only pageSize
+  - Next page: pageSize + cursor + page (from response pages[])
+
+  Enum values:
+  - status: SENT, RETRYING, DELIVERED, FAILED, PENDING
+}

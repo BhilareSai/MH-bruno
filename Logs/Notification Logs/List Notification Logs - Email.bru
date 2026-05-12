@@ -1,0 +1,66 @@
+meta {
+  name: List Notification Logs - Email
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/app/data/api/v1/data/notification-logs/list
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+  channel: EMAIL
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "search": null,
+    "fromDate": "2026-04-01",
+    "toDate": "2026-05-12",
+    "businessSegment": "TRADE",
+    "pageSize": 10,
+    "cursor": null,
+    "page": 1,
+    "ids": null,
+    "statuses": null,
+    "actions": null,
+    "sentTos": null,
+    "templateTypes": null,
+    "subjects": null
+  }
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Cursor-paginated notification log list (EMAIL channel).
+
+  Headers:
+  - channel (REQUIRED): EMAIL
+  - Business-Segment: TRADE | KEY | NON_TRADE
+
+  TRADE segment columns: Log ID, Sent On, Sent To, CC, Template Type, Subject, Status, Action
+  Other segments add: Group ID, Group Name, Site ID, Site Name, Error
+
+  Multi-select filters (send as arrays):
+  - ids: [1, 2, 3]
+  - statuses: ["SENT", "FAILED"]
+  - actions: ["SURVEY_LINK", "REMINDER"]
+  - sentTos: ["user@example.com"]
+  - templateTypes: ["SURVEY_FEEDBACK"]
+  - subjects: ["Feedback Request"]
+
+  Pagination:
+  - First page: send only pageSize
+  - Next page: pageSize + cursor + page (from response pages[])
+
+  Enum values:
+  - status: SENT, RETRYING, DELIVERED, FAILED, PENDING
+}

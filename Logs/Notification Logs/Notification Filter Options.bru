@@ -1,0 +1,38 @@
+meta {
+  name: Notification Filter Options
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/app/data/api/v1/data/notification-logs/filters?field=status&page=1&size=10
+  body: none
+  auth: inherit
+}
+
+params:query {
+  field: status
+  page: 1
+  size: 10
+  ~search:
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+  channel: SMS
+}
+
+settings {
+  encodeUrl: true
+}
+
+docs {
+  Distinct values for notification log dropdowns.
+
+  Supported fields: status, action, businessSegment, customerSegment,
+  customerCode, groupCode, groupName, siteId, siteName, surveyId,
+  recipient, sentTo, mobile, mobileNumber, feedbackId, templateId, lob, mode.
+
+  channel header is REQUIRED.
+}
