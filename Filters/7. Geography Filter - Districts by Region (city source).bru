@@ -5,19 +5,19 @@ meta {
 }
 
 get {
-  url: {{base_url}}/data/api/v1/data/filters/geography?source=city&regionCode=R001
+  url: {{base_url}}/data/api/v1/data/filters/geography?source=city&type=facility&search=vi
   body: none
   auth: inherit
 }
 
 params:query {
   source: city
-  regionCode: R001
-  ~type: district
+  type: facility
+  search: vi
+  ~regionCode: R001
   ~zoneCode: 
   ~stateCode: 
   ~depotCode: 
-  ~search: 
   ~page: 1
   ~size: 20
 }
@@ -29,6 +29,7 @@ headers {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {

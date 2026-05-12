@@ -5,18 +5,18 @@ meta {
 }
 
 get {
-  url: {{base_url}}/data/api/v1/data/filters/geography?type=region&page=1&size=20
+  url: {{base_url}}/data/api/v1/data/filters/geography?type=city&page=1&size=20&source=facility&search=
   body: none
   auth: inherit
 }
 
 params:query {
-  type: region
+  type: city
   page: 1
   size: 20
+  source: facility
+  search: 
   ~zoneCode: Z001
-  ~source: facility
-  ~search: 
 }
 
 headers {
@@ -26,6 +26,7 @@ headers {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
