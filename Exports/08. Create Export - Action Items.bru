@@ -1,0 +1,92 @@
+meta {
+  name: 08. Create Export - Action Items
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "ACTION_ITEMS",
+    "filters": {
+      "uid": "",
+      "keyword": "",
+      "customerCode": "",
+      "customerName": "",
+      "assignedUserName": "",
+      "customerCategory": "",
+      "l1Driver": "",
+      "l2Driver": "",
+      "status": "OPEN",
+      "lobCode": "",
+      "zoneCode": "",
+      "regionCode": "",
+      "cityCode": "",
+      "districtCode": "",
+      "depotCode": "",
+      "escalationLevel": "",
+      "reassignmentStatus": "",
+      "surveyId": "",
+      "groupCode": "",
+      "groupName": "",
+      "siteId": "",
+      "siteName": "",
+      "touchpointName": "",
+      "touchpointRole": "",
+      "farRoleCode": "",
+      "functionalType": "",
+      "tatDays": "",
+      "overdue": null,
+      "npsScore": null,
+      "npsScoreFrom": null,
+      "npsScoreTo": null,
+      "feedbackDateFrom": null,
+      "feedbackDateTo": null,
+      "dueDateFrom": null,
+      "dueDateTo": null,
+      "closedOnFrom": null,
+      "closedOnTo": null
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of action items (MH_ACTION_ITEMS).
+  Module: ACTION_ITEMS
+
+  Filters (all optional):
+  - uid / keyword / customerCode / customerName / assignedUserName
+  - customerCategory / l1Driver / l2Driver
+  - status: OPEN, CLOSED, IN_PROGRESS, OVERDUE
+  - lobCode / zoneCode / regionCode / cityCode / districtCode / depotCode
+  - escalationLevel / reassignmentStatus
+  - surveyId / groupCode / groupName / siteId / siteName
+  - touchpointName / touchpointRole / farRoleCode / functionalType / tatDays
+  - overdue: true/false
+  - npsScore / npsScoreFrom / npsScoreTo: NPS score or range
+  - Date ranges: feedbackDateFrom/To, dueDateFrom/To, closedOnFrom/To
+}

@@ -1,0 +1,65 @@
+meta {
+  name: 02. Create Export - BPO Users
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "BPO_USERS",
+    "filters": {
+      "status": "ACTIVE",
+      "userType": "BPO_AGENT",
+      "role": "",
+      "name": "",
+      "email": "",
+      "mobile": "",
+      "employeeId": "",
+      "lobCode": "",
+      "lobName": "",
+      "zoneCode": "",
+      "regionCode": "",
+      "language": "",
+      "search": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of BPO users (BPO_ADMIN / BPO_AGENT from MH_USERS).
+  Module: BPO_ADMIN_AND_MGMT
+
+  Filters (all optional):
+  - status: ACTIVE, INACTIVE, LOCKED, PENDING
+  - userType: BPO_ADMIN, BPO_AGENT
+  - role, name, email, mobile, employeeId
+  - lobCode / lobName
+  - zoneCode / regionCode
+  - language: preferred language code
+  - search: free-text search
+}

@@ -1,0 +1,62 @@
+meta {
+  name: 11. Create Export - BPO Logs
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "BPO_LOGS",
+    "startTime": "2026-01-01",
+    "endTime": "2026-05-12",
+    "filters": {
+      "agentName": "",
+      "lobCode": "",
+      "status": "",
+      "customerSegment": "",
+      "customerCategory": "",
+      "sapOrderId": "",
+      "diNumber": "",
+      "search": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of BPO logs (MH_BPO_LOGS).
+  Module: BPO_ADMIN_AND_MGMT
+  **Date range required** — startTime and endTime must be provided.
+
+  Filters (all optional):
+  - agentName: BPO agent name
+  - lobCode: LOB code
+  - status: call status
+  - customerSegment / customerCategory
+  - sapOrderId / diNumber: order identifiers
+  - search: free-text search
+}

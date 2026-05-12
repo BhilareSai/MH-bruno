@@ -1,0 +1,51 @@
+meta {
+  name: 04. Create Export - Calling List Trade Reassignment
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "CALLING_LIST_TRADE_REASSIGNMENT",
+    "filters": {
+      "status": "PENDING",
+      "zone": "",
+      "region": "",
+      "lob": "CEMENT",
+      "generatedMonth": "2026-05-01",
+      "assignedAgentEmail": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of trade calling list rows that have a PENDING reassignment.
+  Module: CALLS
+  Uses EXISTS subquery on MH_CALL_REASSIGNMENT (status=PENDING).
+  Same filters as CALLING_LIST_TRADE — only rows with pending reassignment are included.
+}

@@ -1,0 +1,38 @@
+meta {
+  name: 19. List My Exports
+  type: http
+  seq: 19
+}
+
+get {
+  url: {{base_url}}/report/api/v1/exports?page=0&size=20
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 0
+  size: 20
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  List the current user's exports (paginated, newest first).
+
+  Query params:
+  - page: page number (0-based, default 0)
+  - size: page size (default 20)
+
+  Response:
+  - exports: array of ExportStatusResponse
+  - page, size, totalElements, totalPages
+}

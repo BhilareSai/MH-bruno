@@ -1,0 +1,96 @@
+meta {
+  name: 07. Create Export - Feedback
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "FEEDBACK",
+    "filters": {
+      "uid": "",
+      "customerCategory": "",
+      "customerSegment": "",
+      "zoneCode": "",
+      "regionCode": "",
+      "cityCode": "",
+      "districtCode": "",
+      "depoCode": "",
+      "feedbackId": "",
+      "surveyId": "",
+      "groupId": "",
+      "groupName": "",
+      "siteId": "",
+      "siteName": "",
+      "feedbackChannel": "",
+      "customerName": "",
+      "role": "",
+      "contact": "",
+      "l1Driver": "",
+      "l2Driver": "",
+      "availabilityDelivery": "",
+      "billingPayment": "",
+      "brandImage": "",
+      "brandingCommunication": "",
+      "cementQuality": "",
+      "incentivesSchemes": "",
+      "packingQuality": "",
+      "pricing": "",
+      "relationshipActivities": "",
+      "salesService": "",
+      "technicalServices": "",
+      "npsCategory": "",
+      "lob": "",
+      "createdFrom": "",
+      "createdTo": "",
+      "search": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of feedback data.
+  Module: FEEDBACK
+  Uses segment-specific tables: CUSTOMER_FEEDBACK (TRADE), MH_FEEDBACK_KEY (KEY), MH_FEEDBACK_NONTRADE (NONTRADE).
+
+  TRADE-specific filters:
+  - uid / customerCategory / customerSegment
+  - zoneCode / regionCode / cityCode / districtCode / depoCode
+  - Sentiment filters: availabilityDelivery, billingPayment, brandImage,
+    brandingCommunication, cementQuality, incentivesSchemes, packingQuality,
+    pricing, relationshipActivities, salesService, technicalServices
+    (values: POSITIVE, NEGATIVE, NEUTRAL)
+
+  KEY/NONTRADE-specific filters:
+  - feedbackId / surveyId / groupId / groupName / siteId / siteName
+  - feedbackChannel / customerName / role / contact / l1Driver / l2Driver
+
+  Common filters:
+  - npsCategory: PROMOTER, PASSIVE, DETRACTOR
+  - lob / createdFrom / createdTo / search
+}

@@ -1,0 +1,44 @@
+meta {
+  name: 20. List Exports by Module
+  type: http
+  seq: 20
+}
+
+get {
+  url: {{base_url}}/report/api/v1/exports/module/CALLS?page=0&size=20
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 0
+  size: 20
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  List exports filtered by gateway module (for the current user, paginated).
+  Replace "CALLS" in the URL with the desired module.
+
+  Available modules:
+  - EMPLOYEE (Users)
+  - BPO_ADMIN_AND_MGMT (BPO Users, BPO Logs)
+  - CALLS (Calling List Trade/NonTrade + Reassignments)
+  - FEEDBACK (Feedback)
+  - FAQ (FAQ)
+  - ACTION_ITEMS (Action Items + Reassignment)
+  - LOGS (Audit Logs, Communication Logs, Notification Logs)
+  - FAR_MAPPING (FAR Mappings)
+  - LX_DRIVER_AND_ESCALATION (LX Drivers)
+  - CUSTOMER_OVERVIEW (Customers)
+  - NOTIFICATION (Email/SMS/WhatsApp Templates)
+}

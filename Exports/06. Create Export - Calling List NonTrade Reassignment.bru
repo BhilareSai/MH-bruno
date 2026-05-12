@@ -1,0 +1,50 @@
+meta {
+  name: 06. Create Export - Calling List NonTrade Reassignment
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: MH
+}
+
+body:json {
+  {
+    "exportType": "CALLING_LIST_NONTRADE_REASSIGNMENT",
+    "filters": {
+      "status": "PENDING",
+      "zone": "",
+      "region": "",
+      "lob": "",
+      "assignedAgentEmail": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of non-trade calling list rows with PENDING reassignment.
+  Module: CALLS
+  Uses EXISTS subquery on MH_CALL_REASSIGNMENT (status=PENDING).
+  Same filters as CALLING_LIST_NONTRADE — only rows with pending reassignment are included.
+}

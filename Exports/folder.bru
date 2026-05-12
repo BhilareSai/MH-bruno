@@ -1,0 +1,30 @@
+meta {
+  name: Exports
+  seq: 14
+}
+
+auth {
+  mode: inherit
+}
+
+docs {
+  Async Export Engine — Report Service (port 8087, context /report).
+  All requests route through the API Gateway at {{base_url}}.
+
+  Auth: Bearer {{access_token}}
+  Header: Business-Segment (TRADE / KEY / NONTRADE)
+
+  Flow:
+  1. POST /exports — create export job (returns exportId, status=QUEUED)
+  2. GET /exports/{id}/status — poll for progress
+  3. GET /exports/{id}/download — get presigned S3 URL when COMPLETED
+  4. GET /exports — list your exports (paginated)
+  5. GET /exports/module/{module} — list exports by gateway module
+  6. POST /exports/{id}/cancel — cancel a QUEUED export
+
+  Export types: USERS, BPO_USERS, CALLING_LIST_TRADE, CALLING_LIST_TRADE_REASSIGNMENT,
+  CALLING_LIST_NONTRADE, CALLING_LIST_NONTRADE_REASSIGNMENT, FEEDBACK, FAQ,
+  ACTION_ITEMS, ACTION_ITEM_REASSIGNMENT, AUDIT_LOGS, BPO_LOGS,
+  COMMUNICATION_LOGS, NOTIFICATION_LOGS, FAR_MAPPINGS, LX_DRIVERS, CUSTOMERS,
+  EMAIL_TEMPLATES, SMS_TEMPLATES, WHATSAPP_TEMPLATES
+}

@@ -1,0 +1,40 @@
+meta {
+  name: 18. Download Export
+  type: http
+  seq: 18
+}
+
+get {
+  url: {{base_url}}/report/api/v1/exports/{{exportId}}/download
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+vars:pre-request {
+  exportId: 1
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Get a presigned S3 download URL for a COMPLETED export.
+  Set the `exportId` variable to the ID of a completed export.
+
+  Response:
+  - downloadUrl: presigned S3 URL (valid for 60 minutes)
+  - expiresInMinutes: 60
+  - fileName: original file name
+  - fileSizeBytes: file size in bytes
+
+  Errors:
+  - 404: Export not found or not owned by user
+  - 400: Export not in COMPLETED status
+}

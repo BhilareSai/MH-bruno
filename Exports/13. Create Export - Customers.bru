@@ -1,0 +1,95 @@
+meta {
+  name: 13. Create Export - Customers
+  type: http
+  seq: 13
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "CUSTOMERS",
+    "filters": {
+      "customerCode": "",
+      "customerName": "",
+      "email": "",
+      "mobile": "",
+      "status": "ACTIVE",
+      "customerSegment": "",
+      "customerCategory": "",
+      "customerTier": "",
+      "customerClassification": "",
+      "primingStatus": "",
+      "primingMode": "",
+      "lobCode": "",
+      "zoneCode": "",
+      "regionCode": "",
+      "districtCode": "",
+      "talukaCode": "",
+      "cityCode": "",
+      "depotCode": "",
+      "zoneDesc": "",
+      "regionDesc": "",
+      "districtDesc": "",
+      "talukaDesc": "",
+      "depotDesc": "",
+      "cityDesc": "",
+      "surveyLanguage": "",
+      "preferredLanguage": "",
+      "associatedDealerCode": "",
+      "groupName": "",
+      "groupCode": "",
+      "siteId": "",
+      "siteName": "",
+      "touchpointId": "",
+      "touchpointRole": "",
+      "touchpointUserName": "",
+      "frequencyMin": null,
+      "frequencyMax": null,
+      "search": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of customers (MH_CUSTOMER).
+  Module: CUSTOMER_OVERVIEW
+
+  Filters (all optional):
+  - customerCode / customerName / email / mobile
+  - status: ACTIVE, INACTIVE
+  - customerSegment / customerCategory / customerTier / customerClassification
+  - primingStatus / primingMode
+  - lobCode
+  - Geography codes: zoneCode, regionCode, districtCode, talukaCode, cityCode, depotCode
+  - Geography descriptions: zoneDesc, regionDesc, districtDesc, talukaDesc, depotDesc, cityDesc
+  - surveyLanguage / preferredLanguage
+  - associatedDealerCode
+  - groupName / groupCode / siteId / siteName
+  - touchpointId / touchpointRole / touchpointUserName
+  - frequencyMin / frequencyMax: survey frequency range
+  - search: free-text search
+}

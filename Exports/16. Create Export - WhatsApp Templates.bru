@@ -1,0 +1,51 @@
+meta {
+  name: 16. Create Export - WhatsApp Templates
+  type: http
+  seq: 16
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "WHATSAPP_TEMPLATES",
+    "filters": {
+      "status": "ACTIVE",
+      "templateType": "",
+      "templateName": "",
+      "createdBy": "",
+      "createdFrom": "",
+      "createdTo": "",
+      "searchText": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of WhatsApp templates (MH_WHATSAPP_TEMPLATE).
+  Module: NOTIFICATION
+  Same filter set as Email Templates.
+}

@@ -1,0 +1,58 @@
+meta {
+  name: 14. Create Export - Email Templates
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "EMAIL_TEMPLATES",
+    "filters": {
+      "status": "ACTIVE",
+      "templateType": "",
+      "templateName": "",
+      "createdBy": "",
+      "createdFrom": "",
+      "createdTo": "",
+      "searchText": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of email templates (MH_EMAIL_TEMPLATE).
+  Module: NOTIFICATION
+
+  Filters (all optional):
+  - status: ACTIVE, INACTIVE
+  - templateType: template type code
+  - templateName: template name (partial match)
+  - createdBy: creator name/email
+  - createdFrom / createdTo: creation date range (yyyy-MM-dd)
+  - searchText: free-text search
+}

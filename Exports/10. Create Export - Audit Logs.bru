@@ -1,0 +1,62 @@
+meta {
+  name: 10. Create Export - Audit Logs
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "AUDIT_LOGS",
+    "startTime": "2026-01-01",
+    "endTime": "2026-05-12",
+    "filters": {
+      "role": "",
+      "module": "",
+      "user": "",
+      "status": "",
+      "lobCode": "",
+      "actionPerformed": "",
+      "search": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of audit logs (MH_AUDIT_LOGS + MH_AUDIT_LOG_DETAILS).
+  Module: LOGS
+  **Date range required** — startTime and endTime must be provided.
+
+  Filters (all optional):
+  - role: user role (e.g. BUSINESS_ADMIN)
+  - module: module name (e.g. USERS, CALLING_LIST)
+  - user: user name or email
+  - status: SUCCESS, FAILURE
+  - lobCode: LOB code
+  - actionPerformed: action type (e.g. CREATE, UPDATE, DELETE)
+  - search: free-text search across user, module, action
+}

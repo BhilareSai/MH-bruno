@@ -1,0 +1,108 @@
+meta {
+  name: 03. Create Export - Calling List Trade
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "CALLING_LIST_TRADE",
+    "filters": {
+      "tab": "",
+      "uid": "",
+      "customerCode": "",
+      "customerName": "",
+      "individualName": "",
+      "pan": "",
+      "mobile": "",
+      "email": "",
+      "lob": "CEMENT",
+      "customerCategory": "",
+      "customerSegment": "",
+      "callType": "",
+      "grade": "",
+      "status": "PENDING",
+      "primingStatus": "",
+      "region": "",
+      "zone": "",
+      "state": "",
+      "city": "",
+      "district": "",
+      "taluka": "",
+      "depot": "",
+      "slabId": "",
+      "quantityMinMt": null,
+      "quantityMaxMt": null,
+      "assignedAgentEmail": "",
+      "unassigned": null,
+      "generatedMonth": "2026-05-01",
+      "generatedFrom": null,
+      "generatedTo": null,
+      "requestDateFrom": null,
+      "requestDateTo": null,
+      "rescheduleFrom": null,
+      "rescheduleTo": null,
+      "lastCallFrom": null,
+      "lastCallTo": null,
+      "uploadDateFrom": null,
+      "uploadDateTo": null,
+      "kpiDateFrom": null,
+      "kpiDateTo": null,
+      "plantCode": "",
+      "plantCodeName": "",
+      "sapOrderId": "",
+      "ndiNumber": "",
+      "preferredLanguage": "",
+      "deliveryRating": "",
+      "l1Drivers": "",
+      "l2Drivers": "",
+      "sentiments": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of trade calling list (CALLING_LIST table, partitioned by GENERATED_MONTH).
+  Module: CALLS
+  Excludes rows with PENDING reassignment (NOT EXISTS on MH_CALL_REASSIGNMENT).
+
+  Key filters:
+  - tab: tab identifier
+  - uid / customerCode / customerName / individualName / pan / mobile / email
+  - lob / customerCategory / customerSegment / callType / grade
+  - status: PENDING, COMPLETED, RESCHEDULED, etc.
+  - primingStatus: priming state
+  - Geography: zone, region, state, city, district, taluka, depot
+  - slabId / quantityMinMt / quantityMaxMt: quantity slab range
+  - assignedAgentEmail / unassigned: agent assignment
+  - Date ranges: generatedMonth (yyyy-MM-dd), generatedFrom/To, requestDateFrom/To,
+    rescheduleFrom/To, lastCallFrom/To, uploadDateFrom/To, kpiDateFrom/To
+  - plantCode / plantCodeName / sapOrderId / ndiNumber
+  - preferredLanguage / deliveryRating
+  - l1Drivers / l2Drivers / sentiments
+}

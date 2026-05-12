@@ -1,0 +1,50 @@
+meta {
+  name: 09. Create Export - Action Item Reassignment
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "ACTION_ITEM_REASSIGNMENT",
+    "filters": {
+      "status": "OPEN",
+      "reassignmentStatus": "PENDING",
+      "zoneCode": "",
+      "regionCode": "",
+      "lobCode": "",
+      "assignedUserName": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of action items with pending reassignment.
+  Module: ACTION_ITEMS
+  Same filters as ACTION_ITEMS — only rows with pending reassignment are included.
+}

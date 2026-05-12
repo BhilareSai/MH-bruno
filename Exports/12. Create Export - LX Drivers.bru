@@ -1,0 +1,65 @@
+meta {
+  name: 12. Create Export - LX Drivers
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "LX_DRIVERS",
+    "filters": {
+      "lobCode": "",
+      "productCode": "",
+      "l1DriverName": "",
+      "l2DriverName": "",
+      "functionalType": "",
+      "farRoleCode": "",
+      "tatDays": "",
+      "functionalEscalation": "",
+      "actionCreation": null,
+      "status": "ACTIVE",
+      "search": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of LX driver configurations (MH_LX_DRIVER_CONFIG).
+  Module: LX_DRIVER_AND_ESCALATION
+
+  Filters (all optional):
+  - lobCode / productCode
+  - l1DriverName / l2DriverName: driver names
+  - functionalType: QUERY, COMPLAINT, etc.
+  - farRoleCode: FAR role code
+  - tatDays: TAT days
+  - functionalEscalation: escalation level
+  - actionCreation: true/false
+  - status: ACTIVE, INACTIVE
+  - search: free-text search
+}

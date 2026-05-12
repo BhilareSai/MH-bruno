@@ -1,0 +1,36 @@
+meta {
+  name: 21. Cancel Export
+  type: http
+  seq: 21
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports/{{exportId}}/cancel
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+vars:pre-request {
+  exportId: 1
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Cancel a QUEUED export job.
+  Set the `exportId` variable to the ID of the export to cancel.
+  Only QUEUED exports can be cancelled — PROCESSING/COMPLETED/FAILED cannot.
+
+  Response: ExportStatusResponse with status=CANCELLED
+  Errors:
+  - 404: Export not found or not owned by user
+  - 400: Export not in QUEUED status
+}

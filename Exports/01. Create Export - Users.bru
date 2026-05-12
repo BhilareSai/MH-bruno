@@ -1,0 +1,76 @@
+meta {
+  name: 01. Create Export - Users
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/report/api/v1/exports
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+  Business-Segment: TRADE
+}
+
+body:json {
+  {
+    "exportType": "USERS",
+    "filters": {
+      "status": "ACTIVE",
+      "role": "BUSINESS_ADMIN",
+      "functionalRoles": "BUSINESS_EMPLOYEE",
+      "roleId": "",
+      "roleName": "",
+      "isEscalation": false,
+      "firstLogin": false,
+      "reportingManagerId": "",
+      "reportingManagerEmail": "",
+      "departmentId": "",
+      "department": "",
+      "zoneCode": "",
+      "regionCode": "",
+      "depotCode": "",
+      "districtCode": "",
+      "cityCode": "",
+      "lobCode": "",
+      "search": ""
+    }
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json && json.exportId) {
+      bru.setVar('exportId', json.exportId);
+      console.log('Export created — ID:', json.exportId, 'Status:', json.status);
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  Creates an async export of MH_USERS (master users).
+  Module: EMPLOYEE — user must have EXPORT access on EMPLOYEE.
+
+  Filters (all optional):
+  - status: ACTIVE, INACTIVE, LOCKED, PENDING
+  - role: role code (e.g. BUSINESS_ADMIN)
+  - functionalRoles: functional role code
+  - roleId / roleName: role identifier
+  - isEscalation: true/false
+  - firstLogin: true/false
+  - reportingManagerId / reportingManagerEmail
+  - departmentId / department
+  - zoneCode / regionCode / depotCode / districtCode / cityCode: geography codes
+  - lobCode: LOB code (e.g. CEMENT)
+  - search: free-text search across name/email/employeeId
+
+  Response: 201 with ExportStatusResponse (exportId, status=QUEUED)
+}
