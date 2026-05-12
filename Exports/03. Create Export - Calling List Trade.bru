@@ -28,7 +28,7 @@ body:json {
       "pan": "",
       "mobile": "",
       "email": "",
-      "lob": "CEMENT",
+      "lob": "",
       "customerCategory": "",
       "customerSegment": "",
       "callType": "",
@@ -91,18 +91,44 @@ docs {
   Module: CALLS
   Excludes rows with PENDING reassignment (NOT EXISTS on MH_CALL_REASSIGNMENT).
 
-  Key filters:
-  - tab: tab identifier
-  - uid / customerCode / customerName / individualName / pan / mobile / email
-  - lob / customerCategory / customerSegment / callType / grade
-  - status: PENDING, COMPLETED, RESCHEDULED, etc.
+  ALL string filters support MULTI-SELECT via comma-separated values.
+  Example: "zone": "NORTH,SOUTH" → WHERE zone IN ('NORTH','SOUTH')
+
+  CSV IN filters (multi-select, exact match):
+  - tab: callState tab (e.g. "OPEN,CLOSED")
+  - customerCode, pan, mobile, email: exact match (e.g. "C001,C002,C003")
+  - lob: LOB codes (e.g. "CEMENT,RMC")
+  - customerCategory, customerSegment, callType, grade
+  - status: e.g. "PENDING,COMPLETED,RESCHEDULED"
   - primingStatus: priming state
-  - Geography: zone, region, state, city, district, taluka, depot
-  - slabId / quantityMinMt / quantityMaxMt: quantity slab range
-  - assignedAgentEmail / unassigned: agent assignment
-  - Date ranges: generatedMonth (yyyy-MM-dd), generatedFrom/To, requestDateFrom/To,
-    rescheduleFrom/To, lastCallFrom/To, uploadDateFrom/To, kpiDateFrom/To
-  - plantCode / plantCodeName / sapOrderId / ndiNumber
-  - preferredLanguage / deliveryRating
-  - l1Drivers / l2Drivers / sentiments
+  - zone, region, state, city, district, taluka, depot: geography (e.g. "NORTH,SOUTH")
+  - assignedAgentEmail: agent emails (e.g. "a@x.com,b@x.com")
+  - plantCode, sapOrderId, ndiNumber, preferredLanguage: exact match
+
+  Prefix search filters (single value, LIKE prefix%):
+  - uid: prefix match on UID
+  - customerName, individualName: prefix match on name
+  - plantCodeName: prefix match on BOTH plantCode and plantName
+
+  LIKE ANY filters (multi-select, contains match):
+  - l1Drivers: e.g. "QUALITY,DELIVERY" → LIKE '%QUALITY%' OR LIKE '%DELIVERY%'
+  - l2Drivers: same as l1Drivers
+  - sentiments: e.g. "POSITIVE,NEGATIVE"
+
+  Range filters:
+  - slabId: slab IDs (CSV of Longs, e.g. "1,2,3")
+  - quantityMinMt / quantityMaxMt: quantity range (BigDecimal)
+  - deliveryRating: ratings (CSV of bytes, e.g. "1,2,3")
+
+  Boolean filters:
+  - unassigned: true → only rows with no assigned agent
+
+  Date filters (yyyy-MM-dd):
+  - generatedMonth: partition month(s) (CSV, e.g. "2026-05-01,2026-04-01")
+  - generatedFrom / generatedTo
+  - requestDateFrom / requestDateTo
+  - rescheduleFrom / rescheduleTo
+  - lastCallFrom / lastCallTo
+  - uploadDateFrom / uploadDateTo
+  - kpiDateFrom / kpiDateTo
 }

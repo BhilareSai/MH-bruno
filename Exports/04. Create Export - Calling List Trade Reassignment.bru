@@ -20,12 +20,55 @@ body:json {
   {
     "exportType": "CALLING_LIST_TRADE_REASSIGNMENT",
     "filters": {
+      "tab": "",
+      "uid": "",
+      "customerCode": "",
+      "customerName": "",
+      "individualName": "",
+      "pan": "",
+      "mobile": "",
+      "email": "",
+      "lob": "",
+      "customerCategory": "",
+      "customerSegment": "",
+      "callType": "",
+      "grade": "",
       "status": "PENDING",
-      "zone": "",
+      "primingStatus": "",
       "region": "",
-      "lob": "CEMENT",
+      "zone": "",
+      "state": "",
+      "city": "",
+      "district": "",
+      "taluka": "",
+      "depot": "",
+      "slabId": "",
+      "quantityMinMt": null,
+      "quantityMaxMt": null,
+      "assignedAgentEmail": "",
+      "unassigned": null,
       "generatedMonth": "2026-05-01",
-      "assignedAgentEmail": ""
+      "generatedFrom": null,
+      "generatedTo": null,
+      "requestDateFrom": null,
+      "requestDateTo": null,
+      "rescheduleFrom": null,
+      "rescheduleTo": null,
+      "lastCallFrom": null,
+      "lastCallTo": null,
+      "uploadDateFrom": null,
+      "uploadDateTo": null,
+      "kpiDateFrom": null,
+      "kpiDateTo": null,
+      "plantCode": "",
+      "plantCodeName": "",
+      "sapOrderId": "",
+      "ndiNumber": "",
+      "preferredLanguage": "",
+      "deliveryRating": "",
+      "l1Drivers": "",
+      "l2Drivers": "",
+      "sentiments": ""
     }
   }
 }
@@ -47,5 +90,24 @@ docs {
   Creates an async export of trade calling list rows that have a PENDING reassignment.
   Module: CALLS
   Uses EXISTS subquery on MH_CALL_REASSIGNMENT (status=PENDING).
-  Same filters as CALLING_LIST_TRADE — only rows with pending reassignment are included.
+  Same filter set as CALLING_LIST_TRADE — only rows with pending reassignment are included.
+
+  ALL string filters support MULTI-SELECT via comma-separated values.
+  Example: "zone": "NORTH,SOUTH" → WHERE zone IN ('NORTH','SOUTH')
+
+  CSV IN filters (multi-select, exact match):
+  - tab, customerCode, pan, mobile, email, lob, customerCategory, customerSegment,
+    callType, grade, status, primingStatus, zone, region, state, city, district,
+    taluka, depot, assignedAgentEmail, plantCode, sapOrderId, ndiNumber, preferredLanguage
+
+  Prefix search filters (single value, LIKE prefix%):
+  - uid, customerName, individualName, plantCodeName
+
+  LIKE ANY filters (multi-select, contains match):
+  - l1Drivers, l2Drivers, sentiments
+
+  Range: slabId (CSV Longs), quantityMinMt/Max, deliveryRating (CSV bytes)
+  Boolean: unassigned (true = no agent)
+  Dates (yyyy-MM-dd): generatedMonth (CSV), generatedFrom/To, requestDateFrom/To,
+    rescheduleFrom/To, lastCallFrom/To, uploadDateFrom/To, kpiDateFrom/To
 }
