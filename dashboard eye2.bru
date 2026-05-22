@@ -1,0 +1,40 @@
+meta {
+  name: dashboard eye2
+  type: http
+  seq: 22
+}
+
+get {
+  url: https://speed.eye2serve.com/mission-happinessAPI/app/ops/api/v1/dashboard?fromMonth=2026-05&toMonth=2026-05&comparison=MOM
+  body: none
+  auth: inherit
+}
+
+params:query {
+  fromMonth: 2026-05
+  toMonth: 2026-05
+  comparison: MOM
+}
+
+headers {
+  accept: application/json
+  accept-language: en-US,en;q=0.9
+  Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzaWRkZXNoMUBnbWFpbC5jb20iLCJpc3MiOiJtaC1wbGF0Zm9ybSIsImF1ZCI6WyJtaC1zZXJ2aWNlcyJdLCJpYXQiOjE3NzkzNzIyNDYsImV4cCI6MTc3OTM3NDA0NiwidXNlcklkIjoxNDczOTUzMDI1Mjc0MDY4OTkyLCJlbWFpbCI6InNpZGRlc2gxQGdtYWlsLmNvbSIsImVtcGxveWVlSWQiOiIxMjFqZmpqIiwiZnVsbE5hbWUiOiJzaWRkZXNoMSIsInVzZXJUeXBlIjoiVVRDTF9FTVBMT1lFRSIsInNlZ21lbnRzIjpbIlRSQURFIiwiTk9OLVRSQURFIiwiS0VZIl0sInJvbGVUcmFkZSI6IkJVU0lORVNTX0FETUlOIiwicm9sZUtleSI6IkJVU0lORVNTX0FETUlOIiwicm9sZU5vbnRyYWRlIjoiQlVTSU5FU1NfQURNSU4iLCJyb2xlcyI6WyJCVVNJTkVTU19BRE1JTiJdLCJwZXJtaXNzaW9ucyI6WyJUTVRDUyJdfQ.5wDndnfJC6R-FswFrDJvVJsdudQkEnLsuu5jjB2Qf6tF47ezAATRX3l4h4cHwKpq
+  Business-Segment: TRADE
+  content-type: application/json
+  Cookie: sess_map=tqyfwwftvvbrxyfffwurytzbqaczxevwstrcuwvxayrzrqcuxzbyvvyfxvttafewuxeyacuqdxtbfwtcscawaxszcraqdeaczxzbfzayfvqawvvbuqeexwbytdxsacxdssbrusqvwrefeazwxyvdzyyvrywvyxybcqatyfuzsuvrbbwwstcxdcdbfsubybcaucfcuuabuxwdsuutxuddcdcyxexwxxrbyssuruvrsqabtwdwbtsqfyrvaasteesq
+  priority: u=1, i
+  referer: https://speed.eye2serve.com/mission-happiness/dashboard
+  sec-ch-ua: "Chromium";v="148", "Google Chrome";v="148", "Not/A)Brand";v="99"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Windows"
+  sec-fetch-dest: empty
+  sec-fetch-mode: cors
+  sec-fetch-site: same-origin
+  user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
