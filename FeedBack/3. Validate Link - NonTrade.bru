@@ -22,13 +22,16 @@ body:json {
 
 script:post-response {
   var json = res.getBody();
-  if (json.data && json.data.feedbackToken) {
-    bru.setVar('feedback_token', json.data.feedbackToken);
-    console.log('feedback_token saved:', json.data.feedbackToken);
+  if (json.data && json.data.touchpointId) {
+    bru.setVar('touchpoint_id', json.data.touchpointId);
+    console.log('touchpoint_id saved:', json.data.touchpointId);
   }
   if (json.data && json.data.touchpointRole) {
     bru.setVar('touchpoint_role', json.data.touchpointRole);
     console.log('touchpointRole:', json.data.touchpointRole);
+  }
+  if (json.data && json.data.surveyId) {
+    bru.setVar('survey_id', json.data.surveyId);
   }
 }
 

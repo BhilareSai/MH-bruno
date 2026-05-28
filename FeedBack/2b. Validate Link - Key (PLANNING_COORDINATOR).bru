@@ -20,6 +20,10 @@ body:json {
   }
 }
 
+vars:pre-request {
+  base_url: http://localhost:8080/mission-happinessAPI/app
+}
+
 script:post-response {
   var json = res.getBody();
   if (json.data && json.data.feedbackToken) {
@@ -39,6 +43,6 @@ docs {
     Decrypts to  : KEY|610101A132|SURVEY-2026-0001|WhatsApp|R03
     CustomerCode : 610101A132
     Role code    : R03 → PLANNING_COORDINATOR
-
+  
   Expected response: touchpointRole = "PLANNING_COORDINATOR"
 }

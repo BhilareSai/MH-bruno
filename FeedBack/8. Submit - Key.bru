@@ -12,14 +12,18 @@ post {
 
 headers {
   Content-Type: application/json
-  X-Feedback-Token: {{feedback_token}}
 }
 
 body:json {
   {
+    "siteId": "{{site_id}}",
+    "groupId": "{{group_id}}",
+    "touchpointRole": "{{touchpoint_role}}",
+    "surveyId": "{{survey_id}}",
+    "feedbackChannel": "Email",
     "npsScore": 9,
-    "l1Driver": "ORDERING_PROCESS",
-    "l2Driver": "ON_TIME_ORDER_SCHEDULE_CONFIRMATION",
+    "l1Driver": "Ordering Process",
+    "l2Driver": "On-time order schedule confirmation",
     "openFeedback": "Great responsiveness from the team."
   }
 }
