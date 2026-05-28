@@ -1,0 +1,27 @@
+meta {
+  name: 14. Resend Outbox Notification
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/notification/resend?id=1&createdAt=2026-05-27 10:00:00
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 30000
+}
+
+docs {
+  Marks a MH_NOTIFICATION_OUTBOX row as PENDING so the dispatcher resends it.
+
+  Query params:
+    id         MH_NOTIFICATION_OUTBOX.ID
+    createdAt  exact CREATED_AT timestamp (YYYY-MM-DD HH:mm:ss) — used as partition key
+
+  The notification-service dispatcher picks it up on the next run.
+  Response: { success: true, id: 1, message: "Queued for resend..." }
+}

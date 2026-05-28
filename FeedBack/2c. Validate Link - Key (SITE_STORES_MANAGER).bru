@@ -1,0 +1,44 @@
+meta {
+  name: 2c. Validate Link - Key (SITE_STORES_MANAGER)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/key/validate-link
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "token": "pIJ08bdt-kTbzb0VFCVpXlxmq_1VpUTHXvzSKlpexkiQ_d3wq9Mv7dZR0gzVyDEj_YUup1YBIBffOeylaxKpZnA"
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json.data && json.data.feedbackToken) {
+    bru.setVar('feedback_token', json.data.feedbackToken);
+    console.log('feedback_token saved:', json.data.feedbackToken);
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  TOKEN GENERATION:
+    Secret used  : MH-Feedback-Dev-2026
+    Decrypts to  : KEY|610102N004|SURVEY-2026-0001|Email|R06
+    CustomerCode : 610102N004
+    Role code    : R06 → SITE_STORES_MANAGER
+
+  Expected response: touchpointRole = "SITE_STORES_MANAGER"
+}

@@ -7,7 +7,7 @@ meta {
 post {
   url: {{base_url}}/admin/api/v1/feedback/trade/validate-link
   body: json
-  auth: inherit
+  auth: none
 }
 
 headers {
@@ -16,9 +16,7 @@ headers {
 
 body:json {
   {
-    "customerCode": "860101Z009",
-    "surveyId": "SURVEY-2026-0001",
-    "feedbackChannel": "SMS"
+    "token": "9WKG9rkeQX2xoH3dOy__I5uipWYe9T-6RPcDEDDYgLlJ6tuZRoee7ul7BowwHRsiEoc3OaERzR42Cs1V"
   }
 }
 
@@ -29,20 +27,23 @@ settings {
 
 docs {
   Page-load pre-check for the TRADE feedback form.
-  Frontend calls this ONLY when the link carries customerCode.
+  Frontend calls this with the encrypted token from the feedback link URL.
 
-  Input:
-    - customerCode    REQUIRED (MH_CUSTOMER.CUSTOMER_CODE)
-    - surveyId        REQUIRED — every link carries one; dedup runs every call
-    - feedbackChannel OPTIONAL — when present, backend validates channel vs segment
-                                  (TRADE allows SMS | Email | UCC, NOT WhatsApp)
+  The token decrypts to: segment | customerCode | surveyId | channel | roleCode
+  For TRADE: roleCode is always empty.
+
+  TOKEN GENERATION:
+    Secret used: MH-Feedback-Dev-2026
+    Decrypts to: TRADE|410104K002|SURVEY-2026-0001|SMS|
+    Customer:    410104K002 (K SQUARE GRANITE PRIVATE LIMITED)
+
+  ⚠️  Run mh-admin-service with: FEEDBACK_LINK_SECRET=MH-Feedback-Dev-2026
+      To regenerate tokens: node supporting-files/generate-test-tokens/generate-test-tokens.js "MH-Feedback-Dev-2026"
 
   Outcomes:
-    200 → customer exists. Returned even if ONE of feedback/callback has been filled
-          — user can still do the other action.  { customerName, lob }
-    404 CUSTOMER_NOT_FOUND          → invalid customerCode
-    409 FEEDBACK_ALREADY_SUBMITTED  → BOTH feedback AND callback already recorded
-                                      (nothing left to do). Message = prior channel + date.
-    400 INVALID_FEEDBACK_CHANNEL    → channel supplied AND not allowed for TRADE
-    400 validation error            → customerCode or surveyId missing
+    200 → { customerName, businessSegment:"TRADE", blankLink:false }
+          TRADE still requires the mobile step — feedbackToken is NOT returned here.
+    404 CUSTOMER_NOT_FOUND          → invalid customerCode in token
+    409 FEEDBACK_ALREADY_SUBMITTED  → both feedback + callback submitted this month
+    400 validation error            → token blank
 }

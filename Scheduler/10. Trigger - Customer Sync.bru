@@ -1,0 +1,23 @@
+meta {
+  name: 10. Trigger - Customer Sync
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/trigger/customer-sync
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 300000
+}
+
+docs {
+  Syncs customers from UTCL source tables to MH_CUSTOMER.
+  Run this if new customers are not showing up in the feedback/calling list flows.
+
+  Response: { status: "SUCCESS", job: "customer-sync", durationMs: ... }
+}

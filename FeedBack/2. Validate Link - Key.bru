@@ -1,5 +1,5 @@
 meta {
-  name: 2. Validate Link - Key
+  name: 2. Validate Link - Key (PROJECT_MANAGER)
   type: http
   seq: 2
 }
@@ -7,7 +7,7 @@ meta {
 post {
   url: {{base_url}}/admin/api/v1/feedback/key/validate-link
   body: json
-  auth: inherit
+  auth: none
 }
 
 headers {
@@ -16,9 +16,19 @@ headers {
 
 body:json {
   {
-    "customerCode": "610102A024",
-    "surveyId": "SURVEY-2026-0001",
-    "feedbackChannel": "WhatsApp"
+    "token": "cnayN8hbcm366WsrgAqJzpn38f1DodBSJMKBQxyIDfq-bCpAhuSUMARmNwRBUdJ_D2GwEHSHbeTsDK200WqhQPM"
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json.data && json.data.feedbackToken) {
+    bru.setVar('feedback_token', json.data.feedbackToken);
+    console.log('feedback_token saved:', json.data.feedbackToken);
+  }
+  if (json.data && json.data.touchpointRole) {
+    bru.setVar('touchpoint_role', json.data.touchpointRole);
+    console.log('touchpointRole:', json.data.touchpointRole);
   }
 }
 
@@ -28,21 +38,26 @@ settings {
 }
 
 docs {
-  Page-load pre-check for the KEY feedback form.
-  Frontend calls this ONLY when the link carries customerCode (site code).
-
-  Input:
-    - customerCode    REQUIRED — site code (MH_TOUCHPOINT_MAPPING.CUSTOMER_CODE
-                                 with BUSINESS_SEGMENT='KEY')
-    - surveyId        REQUIRED — every link carries one; dedup runs every call
-    - feedbackChannel OPTIONAL — WhatsApp | SMS | Email | UCC
-
+  Page-load pre-check for the KEY feedback form (PROJECT_MANAGER role).
+  No mobile step — feedbackToken is returned directly in the response.
+  
+  TOKEN GENERATION:
+    Secret used  : MH-Feedback-Dev-2026
+    Decrypts to  : KEY|610101A132|SURVEY-2026-0001|Email|R04
+    CustomerCode : 610101A132
+    Role code    : R04 → PROJECT_MANAGER
+  
+  ⚠️  Run mh-admin-service with: FEEDBACK_LINK_SECRET=MH-Feedback-Dev-2026
+      To regenerate tokens: node supporting-files/generate-test-tokens/generate-test-tokens.js "MH-Feedback-Dev-2026"
+  
   Outcomes:
-    200 → site exists. Returned even if ONE of feedback/callback is already recorded
-          (the user can still do the other).  { customerName, siteId, siteName, groupId, groupName, lob }
-    404 CUSTOMER_NOT_FOUND          → site not found for KEY segment
-    409 FEEDBACK_ALREADY_SUBMITTED  → BOTH feedback AND callback already recorded for
-                                      (site, survey). Nothing left to do.
-    400 INVALID_FEEDBACK_CHANNEL    → channel supplied AND unknown
-    400 validation error            → customerCode or surveyId missing
+    200 → {
+            customerName, siteId, siteName, groupId, groupName, lob, mappingLevel,
+            touchpointRole: "PROJECT_MANAGER",
+            feedbackToken: "<JWT to submit with>",
+            businessSegment: "KEY"
+          }
+    404 CUSTOMER_NOT_FOUND  → touchpoint not found for (customerCode, role, KEY)
+    409 FEEDBACK_ALREADY_SUBMITTED
+    400 validation error
 }

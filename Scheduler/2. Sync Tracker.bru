@@ -1,0 +1,21 @@
+meta {
+  name: 2. Sync Tracker
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{scheduler_url}}/api/dashboard/sync-tracker
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Returns MH_SYNC_TRACKER — all jobs with their last run time, status, duration, rows affected.
+  Useful to quickly see which jobs ran and when without opening the full dashboard.
+}

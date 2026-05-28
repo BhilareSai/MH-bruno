@@ -1,0 +1,49 @@
+meta {
+  name: 12. Trigger - Any Job (Generic)
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/trigger/feedback-to-calling-list
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 300000
+}
+
+docs {
+  Generic trigger — change the job name in the URL to trigger any job.
+
+  All available job names:
+    ihb-customer-sync
+    customer-sync
+    customer-mapping-sync
+    user-sync
+    huddle-transition
+    transaction-aggregation
+    transaction-archive
+    quarterly-target-update
+    monthly-target-compute
+    trade-cement-calling-list
+    trade-cement-pipeline
+    trade-target-based-calling-list
+    non-trade-key-progress
+    service-status
+    non-trade-key-survey-trigger       ← generates KEY/NONTRADE survey trigger rows
+    notification-enqueue               ← enqueues notifications with encrypted links
+    feedback-to-calling-list           ← moves feedback to calling list
+    non-trade-key-survey-pipeline      ← full KEY/NONTRADE survey pipeline
+    calling-list-archive
+    feedback-partition
+    action-item-escalation
+    logistics-survey-trigger
+    ihb-survey-trigger
+    trade-notification-enqueue         ← TRADE notification enqueue
+    dashboard-aggregation
+    key-nontrade-dashboard-aggregation
+    calling-list-kpi-summary
+}

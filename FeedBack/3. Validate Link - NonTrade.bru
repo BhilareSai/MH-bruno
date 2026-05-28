@@ -1,5 +1,5 @@
 meta {
-  name: 3. Validate Link - NonTrade
+  name: 3. Validate Link - NonTrade (PROJECT_MANAGER)
   type: http
   seq: 3
 }
@@ -7,7 +7,7 @@ meta {
 post {
   url: {{base_url}}/admin/api/v1/feedback/non-trade/validate-link
   body: json
-  auth: inherit
+  auth: none
 }
 
 headers {
@@ -16,9 +16,19 @@ headers {
 
 body:json {
   {
-    "customerCode": "630102B069",
-    "surveyId": "SURVEY-2026-0001",
-    "feedbackChannel": "Email"
+    "token": "jjhvq8AquWRBW-8W8S8WgiFGoroUCV3_YHNejG_IdNDvlV-y8En2mwuxupZZoTZu1Ipodfgqaaj6egK4rDF5ba0"
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json.data && json.data.feedbackToken) {
+    bru.setVar('feedback_token', json.data.feedbackToken);
+    console.log('feedback_token saved:', json.data.feedbackToken);
+  }
+  if (json.data && json.data.touchpointRole) {
+    bru.setVar('touchpoint_role', json.data.touchpointRole);
+    console.log('touchpointRole:', json.data.touchpointRole);
   }
 }
 
@@ -28,21 +38,26 @@ settings {
 }
 
 docs {
-  Page-load pre-check for the NON_TRADE feedback form.
-  Frontend calls this ONLY when the link carries customerCode (site code).
+  Page-load pre-check for the NON_TRADE feedback form (PROJECT_MANAGER role).
+  No mobile step — feedbackToken is returned directly in the response.
 
-  Input:
-    - customerCode    REQUIRED — site code (MH_TOUCHPOINT_MAPPING.CUSTOMER_CODE
-                                 with BUSINESS_SEGMENT='NONTRADE')
-    - surveyId        REQUIRED — every link carries one; dedup runs every call
-    - feedbackChannel OPTIONAL — WhatsApp | SMS | Email | UCC
+  TOKEN GENERATION:
+    Secret used  : MH-Feedback-Dev-2026
+    Decrypts to  : NONTRADE|630102B069|SURVEY-2026-0001|Email|R04
+    CustomerCode : 630102B069 (placeholder — add a real NONTRADE customer code)
+    Role code    : R04 → PROJECT_MANAGER
+
+  ⚠️  Run mh-admin-service with: FEEDBACK_LINK_SECRET=MH-Feedback-Dev-2026
+      To regenerate tokens: node supporting-files/generate-test-tokens/generate-test-tokens.js "MH-Feedback-Dev-2026"
+      Update TEST_CASES in the script with a real NONTRADE customerCode once data is loaded.
 
   Outcomes:
-    200 → site exists. Returned even if ONE of feedback/callback already recorded
-          (the user can still do the other).  { customerName, siteId, siteName, groupId, groupName, lob }
-    404 CUSTOMER_NOT_FOUND          → site not found for NONTRADE segment
-    409 FEEDBACK_ALREADY_SUBMITTED  → BOTH feedback AND callback already recorded
-                                      for (site, survey). Nothing left to do.
-    400 INVALID_FEEDBACK_CHANNEL    → channel supplied AND unknown
-    400 validation error            → customerCode or surveyId missing
+    200 → {
+            customerName, siteId, siteName, groupId, groupName, lob, mappingLevel,
+            touchpointRole: "PROJECT_MANAGER",
+            feedbackToken: "<JWT>",
+            businessSegment: "NONTRADE"
+          }
+    404 CUSTOMER_NOT_FOUND  → NONTRADE touchpoint not found
+    409 FEEDBACK_ALREADY_SUBMITTED
 }

@@ -1,0 +1,44 @@
+meta {
+  name: 2d. Validate Link - Key (SITE_QUALITY_MANAGER)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/key/validate-link
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "token": "xWHreJTf0kRjHyoppYL4KDYM4bWNXhPBXFTc59hLCH3FRsV2VE-V8pChyFoUD099Ji8iA5ilGXwJlkCDECBx"
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json.data && json.data.feedbackToken) {
+    bru.setVar('feedback_token', json.data.feedbackToken);
+    console.log('feedback_token saved:', json.data.feedbackToken);
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  TOKEN GENERATION:
+    Secret used  : MH-Feedback-Dev-2026
+    Decrypts to  : KEY|610102N004|SURVEY-2026-0001|SMS|R05
+    CustomerCode : 610102N004
+    Role code    : R05 → SITE_QUALITY_MANAGER
+
+  Expected response: touchpointRole = "SITE_QUALITY_MANAGER"
+}

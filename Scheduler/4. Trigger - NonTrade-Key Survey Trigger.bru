@@ -1,0 +1,32 @@
+meta {
+  name: 4. Trigger - NonTrade-Key Survey Trigger
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/trigger/non-trade-key-survey-trigger
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 120000
+}
+
+docs {
+  Manually triggers the KEY/NONTRADE survey trigger job.
+
+  What it does:
+    - Picks eligible KEY and NONTRADE touchpoints
+    - Creates rows in MH_SURVEY_TRIGGER (one per site/touchpoint)
+    - These trigger rows are later picked up by notification-enqueue
+
+  To generate feedback links:
+    Step 1 → Run this (creates survey trigger rows)
+    Step 2 → Run "Trigger - Notification Enqueue" (reads trigger rows, writes to outbox with encrypted links)
+    Step 3 → Run notification dispatcher to actually send Email/WA/SMS
+
+  Response: { status: "SUCCESS", job: "non-trade-key-survey-trigger", durationMs: ... }
+}

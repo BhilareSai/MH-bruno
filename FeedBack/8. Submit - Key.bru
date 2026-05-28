@@ -7,7 +7,7 @@ meta {
 post {
   url: {{base_url}}/admin/api/v1/feedback/key/submit
   body: json
-  auth: inherit
+  auth: none
 }
 
 headers {
@@ -32,7 +32,7 @@ settings {
 docs {
   Step 3 of the KEY flow.
 
-  - Uses the token from Validate Customer - Key.
+  - Uses the feedbackToken returned by Validate Link - Key.
   - surveyId + feedbackChannel come from the token (anti-tamper).
   - L1 required. L2 required only when npsScore >= 9 (promoters); optional otherwise.
   - L1/L2 must be a valid pair from /feedback/drivers.

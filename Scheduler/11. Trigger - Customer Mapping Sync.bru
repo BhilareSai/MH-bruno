@@ -1,0 +1,23 @@
+meta {
+  name: 11. Trigger - Customer Mapping Sync
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/trigger/customer-mapping-sync
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 300000
+}
+
+docs {
+  Syncs customer-user mappings into MH_CUSTOMER_USER_MAPPING_TRADE/KEY/NONTRADE.
+  Run this if touchpoints or mappings are stale.
+
+  Response: { status: "SUCCESS", job: "customer-mapping-sync", durationMs: ... }
+}

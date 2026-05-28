@@ -1,0 +1,32 @@
+meta {
+  name: 5. Trigger - Notification Enqueue
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/trigger/notification-enqueue
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 120000
+}
+
+docs {
+  Manually triggers the notification enqueue job.
+
+  What it does:
+    - Reads pending rows from MH_SURVEY_TRIGGER
+    - For each touchpoint × channel → generates encrypted feedback link
+    - Writes a row to MH_NOTIFICATION_OUTBOX (status = PENDING)
+    - Link format: {baseUrl}/feedback/{SEGMENT}/{token}
+
+  Run AFTER "Trigger - NonTrade-Key Survey Trigger" to see outbox rows with real links.
+  Run BEFORE notification dispatcher to send those links out.
+
+  Response: { status: "SUCCESS", job: "notification-enqueue", durationMs: ... }
+}
+​

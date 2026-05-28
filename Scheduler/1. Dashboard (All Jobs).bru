@@ -1,0 +1,25 @@
+meta {
+  name: 1. Dashboard (All Jobs)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{scheduler_url}}/api/dashboard
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Returns status of ALL scheduled jobs — cron, last run, next fire, duration, rows affected.
+  Combines data from scheduler-frequency.yaml + SHEDLOCK + MH_SYNC_TRACKER.
+
+  Response per job:
+    name, description, cron, status (IDLE/RUNNING/LOCKED/NEVER_RUN),
+    lastRun, nextFire, timeUntilNext, durationMs, rowsAffected
+}

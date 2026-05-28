@@ -1,0 +1,44 @@
+meta {
+  name: 2b. Validate Link - Key (PLANNING_COORDINATOR)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/key/validate-link
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "token": "t5JyGueyI2ErUgRS67FkprIcUwERm4uc0at6aHWxEhRv4_ExHhUH5joepRhk3oaSiyKxWWoUNBz-N2dVIfe7VcPc6Go"
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json.data && json.data.feedbackToken) {
+    bru.setVar('feedback_token', json.data.feedbackToken);
+    console.log('feedback_token saved:', json.data.feedbackToken);
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  TOKEN GENERATION:
+    Secret used  : MH-Feedback-Dev-2026
+    Decrypts to  : KEY|610101A132|SURVEY-2026-0001|WhatsApp|R03
+    CustomerCode : 610101A132
+    Role code    : R03 → PLANNING_COORDINATOR
+
+  Expected response: touchpointRole = "PLANNING_COORDINATOR"
+}

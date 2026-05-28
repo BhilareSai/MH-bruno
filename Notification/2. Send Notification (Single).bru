@@ -1,0 +1,47 @@
+meta {
+  name: 2. Send Notification (Single)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{notification_url}}/api/v1/notifications/send
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "notificationType": "SURVEY",
+    "mode": "EMAIL",
+    "businessSegment": "TRADE",
+    "receivers": [
+      {
+        "email": "mhtesting652@gmail.com",
+        "mobile": "917304258736",
+        "name": "Test Customer",
+        "customerCode": "410104K002",
+        "surveyId": "SURVEY-2026-0001",
+        "feedbackChannel": "Email"
+      }
+    ]
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 30000
+}
+
+docs {
+  Sends a single templated notification.
+  Looks up active template by notificationType + businessSegment.
+
+  notificationType : SURVEY | CALLBACK | OTHER
+  mode             : EMAIL | SMS | WHATSAPP
+  businessSegment  : TRADE | KEY | NONTRADE
+}

@@ -1,0 +1,29 @@
+meta {
+  name: 3. Scheduler Logs
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{scheduler_url}}/api/dashboard/logs?lines=100
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Returns last N scheduler-related log lines from the log file.
+
+  Query params:
+    lines  (default 200) — how many lines to return
+    filter (optional)    — only return lines containing this string
+
+  Examples:
+    /api/dashboard/logs?lines=50&filter=nonTradeKeySurveyTrigger
+    /api/dashboard/logs?lines=100&filter=notificationEnqueue
+    /api/dashboard/logs?lines=200
+}

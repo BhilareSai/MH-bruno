@@ -1,0 +1,30 @@
+meta {
+  name: 15. Reset Customer Mapping (Dev Only)
+  type: http
+  seq: 15
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/reset/customer-mapping
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 30000
+}
+
+docs {
+  ⚠️  DEV/QA USE ONLY — clears all customer-user mapping tables.
+
+  What it deletes:
+    - MH_CUSTOMER_USER_MAPPING_TRADE
+    - MH_CUSTOMER_USER_MAPPING_NONTRADE
+    - MH_CUSTOMER_USER_MAPPING_KEY
+    - MH_SYNC_TRACKER row for customerMappingSync
+    - Releases the ShedLock for customerMappingSync
+
+  NEVER touches UTCL source tables.
+  Use to force a full re-sync by running customer-mapping-sync after this.
+}

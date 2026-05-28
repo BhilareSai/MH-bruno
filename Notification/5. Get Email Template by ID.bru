@@ -1,0 +1,28 @@
+meta {
+  name: 5. Get Email Template by ID
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{notification_url}}/api/v1/templates/email/1?preview=false
+  body: none
+  auth: inherit
+}
+
+headers {
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Gets a single email template by its ID.
+  Replace /1 with actual template ID.
+
+  preview=true  → renders the HTML with sample data (useful for UI preview)
+  preview=false → returns raw template body
+}

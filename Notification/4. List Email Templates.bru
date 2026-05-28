@@ -1,0 +1,32 @@
+meta {
+  name: 4. List Email Templates
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{notification_url}}/api/v1/templates/email?page=1&pageSize=20
+  body: none
+  auth: inherit
+}
+
+headers {
+  Business-Segment: TRADE
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Lists email templates with optional filters.
+
+  Required header: Business-Segment (TRADE | KEY | NONTRADE)
+
+  Optional query params:
+    lobCode, category, status, templateType, templateName
+    createdBy, createdFrom, createdTo, searchText
+    page (default 1), pageSize (default 20)
+    sortBy (default createdDatetime), sortDirection (default DESC)
+}

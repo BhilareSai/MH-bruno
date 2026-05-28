@@ -1,0 +1,28 @@
+meta {
+  name: 8. Trigger - Trade Cement Pipeline (Full)
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{scheduler_url}}/scheduler/api/dashboard/trigger/trade-cement-pipeline
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 600000
+}
+
+docs {
+  Runs the full Trade/Cement calling list pipeline:
+    Stage 0 → TA freshness gate (checks transaction aggregation ran today)
+    Stage 1 → Quarterly target compute
+    Stage 2 → Monthly target compute
+    Stage 3 → Calling list generation (Hamilton quota per region, waterfall slab)
+    Stage 4 → Aggregate truncate (on full success only)
+  
+  ⚠️  Long-running — can take 5-10 minutes. Increase timeout if needed.
+  Response: { status: "SUCCESS" | "FAILED", job: "trade-cement-pipeline", durationMs: ... }
+}

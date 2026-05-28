@@ -1,0 +1,24 @@
+meta {
+  name: 9. Trigger - Transaction Aggregation
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/trigger/transaction-aggregation
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 300000
+}
+
+docs {
+  Manually triggers the transaction aggregation job.
+  Aggregates UTCL_TRANSACTIONS into UTCL_MONTHLY_AGGREGATE.
+  Required before running the Trade Cement Pipeline (Stage 0 gate checks this).
+
+  Response: { status: "SUCCESS", job: "transaction-aggregation", durationMs: ... }
+}

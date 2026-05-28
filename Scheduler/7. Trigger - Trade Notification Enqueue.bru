@@ -1,0 +1,28 @@
+meta {
+  name: 7. Trigger - Trade Notification Enqueue
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/trigger/trade-notification-enqueue
+  body: none
+  auth: inherit
+}
+
+vars:pre-request {
+  scheduler_url: http://localhost:8080/mission-happinessAPI/app
+}
+
+settings {
+  encodeUrl: false
+  timeout: 120000
+}
+
+docs {
+  Manually triggers the TRADE notification enqueue job.
+  Reads pending TRADE survey trigger rows and writes to MH_NOTIFICATION_OUTBOX.
+  
+  Response: { status: "SUCCESS", job: "trade-notification-enqueue", durationMs: ... }
+}
+​

@@ -1,0 +1,24 @@
+meta {
+  name: 3. Resend Notification
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{notification_url}}/api/v1/notifications/resend/1
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 30000
+}
+
+docs {
+  Resends a previously dispatched notification by outbox row ID.
+  Replace /1 with the actual MH_NOTIFICATION_OUTBOX.ID value.
+
+  For EMAIL: uses the stored rendered HTML.
+  For SMS/WhatsApp: uses stored template variables.
+}

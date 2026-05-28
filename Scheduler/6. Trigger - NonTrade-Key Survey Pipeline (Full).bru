@@ -1,0 +1,26 @@
+meta {
+  name: 6. Trigger - NonTrade-Key Survey Pipeline (Full)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{scheduler_url}}/scheduler/api/dashboard/trigger/non-trade-key-survey-pipeline
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 300000
+}
+
+docs {
+  Runs the complete KEY/NONTRADE survey pipeline in one shot.
+  Equivalent to running survey-trigger + notification-enqueue together.
+  
+  Use this when you want to trigger the full end-to-end in one call.
+  After this completes, run the notification dispatcher to send the links.
+  
+  Response: { status: "SUCCESS", job: "non-trade-key-survey-pipeline", durationMs: ... }
+}

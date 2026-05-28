@@ -1,0 +1,26 @@
+meta {
+  name: 13. Dashboard Aggregation Backfill
+  type: http
+  seq: 13
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/trigger/dashboard-aggregation/backfill?fromDate=2026-05-01&toDate=2026-05-31
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: false
+  timeout: 600000
+}
+
+docs {
+  Backfills the dashboard aggregation for a date range.
+
+  Query params:
+    fromDate  YYYY-MM-DD (inclusive)
+    toDate    YYYY-MM-DD (inclusive)
+
+  Use when dashboard data is missing or stale for historical dates.
+}

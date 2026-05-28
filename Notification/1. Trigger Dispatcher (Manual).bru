@@ -1,0 +1,35 @@
+meta {
+  name: 1. Trigger Dispatcher (Manual)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{notification_url}}/api/dashboard/trigger/notification-dispatcher
+  body: none
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+settings {
+  encodeUrl: false
+  timeout: 60000
+}
+
+docs {
+  Manually triggers the notification dispatcher job.
+  Processes all PENDING rows in MH_NOTIFICATION_OUTBOX and sends Email / WhatsApp / SMS.
+
+  Use this for dev/QA testing to push notifications immediately without waiting for the scheduler.
+
+  Response:
+    200 → { "success": true, "message": "Dispatcher completed", "durationMs": 1234 }
+    200 → { "success": false, "error": "...", "durationMs": ... }   (error case)
+
+  Environment:
+    notification_url (local)  → http://localhost:8085/notification
+    notification_url (dev)    → http://10.1.57.78:8085/notification
+}
