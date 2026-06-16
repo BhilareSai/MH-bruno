@@ -5,9 +5,14 @@ meta {
 }
 
 post {
-  url: {{scheduler_url}}/scheduler/api/dashboard/trigger/non-trade-key-survey-pipeline
+  url: {{scheduler_url}}/api/dashboard/trigger/non-trade-key-survey-pipeline
   body: none
   auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: KEY
 }
 
 settings {

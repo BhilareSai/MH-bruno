@@ -10,8 +10,9 @@ post {
   auth: inherit
 }
 
-vars:pre-request {
-  scheduler_url: http://localhost:8080/mission-happinessAPI/app
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: KEY
 }
 
 settings {

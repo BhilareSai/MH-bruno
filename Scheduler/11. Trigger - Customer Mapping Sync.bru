@@ -10,6 +10,11 @@ post {
   auth: inherit
 }
 
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: KEY
+}
+
 settings {
   encodeUrl: false
   timeout: 300000

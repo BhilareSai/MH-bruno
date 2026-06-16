@@ -1,0 +1,44 @@
+meta {
+  name: 16. Trigger - Touchpoint Sync
+  type: http
+  seq: 16
+}
+
+post {
+  url: {{scheduler_url}}/api/dashboard/trigger/touchpoint-sync
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: KEY
+}
+
+settings {
+  encodeUrl: false
+  timeout: 300000
+}
+
+docs {
+  Re-syncs touchpoint role names, emails, and TOUCHPOINTS_NO in MH_CUSTOMER (KEY)
+  from the source-of-truth table MH_TOUCHPOINT_MAPPING.
+
+  Runs 7 bulk UPDATEs:
+    GROUP-level (by GROUP_CODE):
+      HO_RO_COMMERCIAL + HO_RO_COMMERCIAL_EMAIL
+      HO_RO_PROCUREMENT + HO_RO_PROCUREMENT_EMAIL
+    SITE-level (by CUSTOMER_CODE):
+      PLANNING_COORDINATOR + PLANNING_COORDINATOR_EMAIL
+      PROJECT_MANAGER + PROJECT_MANAGER_EMAIL
+      SITE_QUALITY_MANAGER + SITE_QUALITY_MANAGER_EMAIL  (QUALITY_MANAGER role code)
+      SITE_STORES_MANAGER + SITE_STORES_MANAGER_EMAIL
+    Count:
+      TOUCHPOINTS_NO (recomputed from all SITE-level rows)
+
+  After DB update, triggers ES delta sync for affected rows.
+
+  Use when touchpoint names/counts in the customer list look stale after an import.
+
+  Response: { status: "SUCCESS", job: "touchpoint-sync", durationMs: ... }
+}

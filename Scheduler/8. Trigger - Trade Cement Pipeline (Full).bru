@@ -5,9 +5,14 @@ meta {
 }
 
 post {
-  url: {{scheduler_url}}/scheduler/api/dashboard/trigger/trade-cement-pipeline
+  url: {{scheduler_url}}/api/dashboard/trigger/trade-cement-pipeline
   body: none
   auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+  Business-Segment: KEY
 }
 
 settings {
