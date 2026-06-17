@@ -22,6 +22,10 @@ body:json {
   }
 }
 
+vars:pre-request {
+  base_url: https://speed.eye2serve.com/mission-happinessAPI/app
+}
+
 script:post-response {
   var json = res.getBody();
   if (json.data && json.data.accessToken) {
