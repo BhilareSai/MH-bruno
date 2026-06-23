@@ -1,0 +1,59 @@
+meta {
+  name: WhatsApp Test (Admin API)
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://10.1.57.78:8080/mission-happinessAPI/app/admin/api/v1/whatsapp-test
+  body: json
+  auth: inherit
+}
+
+# URL options:
+# local:  http://localhost:8080/mission-happinessAPI/app/admin/api/v1/whatsapp-test
+# dev:    http://10.1.57.78:8080/mission-happinessAPI/app/admin/api/v1/whatsapp-test
+# prod:   https://speed.eye2serve.com/mission-happinessAPI/app/admin/api/v1/whatsapp-test
+
+headers {
+  content-type: application/json
+  business-segment: KEY
+}
+
+body:json {
+  {
+    "template_id": "feedback_3sep_eng",
+    "parameter_values": {
+      "0": "Larsen and Toubro Limiited Constr",
+      "1": "https://speed.eye2serve.com/mission-happiness/feedback/KEY/RIScWpVjOzZootdpCRGE3kN4cLBtZpeBl2QaCYcb33FX1qq3Ujc7DYZkYbzr-3n05gFWzgHvZmhSVew-F631"
+    },
+    "project": "2",
+    "project_key": "2",
+    "doc_type": "WA",
+    "doc_no": "123456",
+    "mobile_no": "919326452041",
+    "msg_type": "PT"
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Calls the admin service whatsapp-test endpoint which proxies to eye2serve at 10.1.56.65.
+  The admin service generates a token and sends the message in one shot.
+
+  To test shut_period_is_over_new (working template):
+  {
+    "template_id": "shut_period_is_over_new",
+    "parameter_values": { "0": "Amey" },
+    "project": "SharePurchase",
+    "project_key": "SP",
+    "doc_type": "TEXT",
+    "doc_no": "843",
+    "mobile_no": "919326452041",
+    "msg_type": "PT"
+  }
+}

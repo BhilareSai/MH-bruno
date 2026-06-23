@@ -1,0 +1,38 @@
+meta {
+  name: WhatsApp Raw Step1 - Generate Token
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://10.1.56.65:8080/WhatsAppAPIService/token/generate-token
+  body: json
+  auth: none
+}
+
+# NOTE: 10.1.56.65 is only reachable from within the internal network (dev server).
+# From local machine run this via dev server proxy or use the Admin API test instead.
+
+headers {
+  content-type: application/json
+}
+
+body:json {
+  {
+    "userid": "utcl",
+    "password": "utcl@123"
+  }
+}
+
+script:post-response {
+  if (res.status === 200) {
+    const body = JSON.parse(res.body);
+    bru.setVar("wa_token", body.token);
+    console.log("Token saved:", body.token);
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}

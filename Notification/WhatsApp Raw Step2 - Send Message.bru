@@ -1,0 +1,54 @@
+meta {
+  name: WhatsApp Raw Step2 - Send Message
+  type: http
+  seq: 9
+}
+
+post {
+  url: http://10.1.56.65:8080/WhatsAppAPIService/WAService/sendWAText
+  body: json
+  auth: none
+}
+
+# NOTE: 10.1.56.65 is only reachable from within the internal network (dev server).
+# Run Step1 first — it saves the token to {{wa_token}}.
+
+headers {
+  content-type: application/json
+  authorization: Bearer {{wa_token}}
+}
+
+body:json {
+  {
+    "template_id": "feedback_3sep_eng",
+    "parameter_values": {
+      "0": "Larsen and Toubro Limiited Constr",
+      "1": "https://speed.eye2serve.com/mission-happiness/feedback/KEY/RIScWpVjOzZootdpCRGE3kN4cLBtZpeBl2QaCYcb33FX1qq3Ujc7DYZkYbzr-3n05gFWzgHvZmhSVew-F631"
+    },
+    "project": "2",
+    "project_key": "2",
+    "doc_type": "WA",
+    "doc_no": "123456",
+    "mobile_no": "919326452041",
+    "msg_type": "PT"
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  To test shut_period_is_over_new (working template):
+  {
+    "template_id": "shut_period_is_over_new",
+    "parameter_values": { "0": "Amey" },
+    "project": "SharePurchase",
+    "project_key": "SP",
+    "doc_type": "TEXT",
+    "doc_no": "843",
+    "mobile_no": "919326452041",
+    "msg_type": "PT"
+  }
+}
