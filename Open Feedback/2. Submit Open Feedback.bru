@@ -1,0 +1,170 @@
+meta {
+  name: 2. Submit Open Feedback
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/admin/api/v1/feedback/open/submit
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "mobileNumber": "8968083334",
+    "feedbackId": "ext-ref-001",
+    "npsScore": 9,
+    "l1TemplateId": "test"
+  }
+}
+
+script:post-response {
+  var json = res.getBody();
+  if (json.feedbackId) {
+    bru.setVar('submitted_feedback_id', json.feedbackId);
+    console.log('Feedback saved with ID:', json.feedbackId, '| customerCode:', json.customerCode);
+  }
+  if (res.getStatus() !== 200) {
+    console.log('Error:', JSON.stringify(json));
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  No-auth API — submits NPS + L1 driver for the latest pending survey of the given mobile number.
+  feedbackId is accepted but NOT stored (pass anything).
+  l1TemplateId must be one of the values returned by the Check Pending API's l1Drivers array.
+
+  ── SUCCESS CASES ──────────────────────────────────────────────────────────────────
+
+  #15 PROMOTER (score 9-10) — HO_RO_COMMERCIAL, KEY
+      {
+        "mobileNumber": "8968083334",
+        "feedbackId": "ext-ref-001",
+        "npsScore": 9,
+        "l1TemplateId": "test"
+      }
+      Expected 200:
+        { feedbackId: <new DB row id>, customerCode: "<touchpoint.id>" }
+        DB: MH_CUSTOMER_FEEDBACK_KEY — NPS_SCORE=9, NPS_CATEGORY="PROMOTER", FEEDBACK_CHANNEL="OPEN_API"
+
+  #16 PASSIVE (score 7-8) — HO_RO_COMMERCIAL, KEY
+      {
+        "mobileNumber": "8697543258",
+        "feedbackId": "ext-ref-002",
+        "npsScore": 7,
+        "l1TemplateId": "test"
+      }
+      Expected 200:
+        { feedbackId: <new DB row id>, customerCode: "<touchpoint.id>" }
+        DB: NPS_SCORE=7, NPS_CATEGORY="PASSIVE", FEEDBACK_CHANNEL="OPEN_API"
+
+  #17 DETRACTOR (score 0-6) — PLANNING_COORDINATOR, KEY, SITE level
+      {
+        "mobileNumber": "8802605727",
+        "feedbackId": "ext-ref-003",
+        "npsScore": 4,
+        "l1TemplateId": "Delivery Efficiency"
+      }
+      Expected 200:
+        { feedbackId: <new DB row id>, customerCode: "<touchpoint.id>" }
+        DB: NPS_SCORE=4, NPS_CATEGORY="DETRACTOR", FEEDBACK_CHANNEL="OPEN_API"
+
+  #18 PROMOTER — PLANNING_COORDINATOR, KEY, SITE level
+      {
+        "mobileNumber": "9750633551",
+        "feedbackId": "ext-ref-004",
+        "npsScore": 10,
+        "l1TemplateId": "Customer Relationship Management"
+      }
+      Expected 200:
+        DB: NPS_SCORE=10, NPS_CATEGORY="PROMOTER"
+
+  #19 PASSIVE — PLANNING_COORDINATOR, KEY (use a driver from l1Drivers list)
+      {
+        "mobileNumber": "7742191465",
+        "feedbackId": "ext-ref-005",
+        "npsScore": 8,
+        "l1TemplateId": "Ordering Process and Availability"
+      }
+      Expected 200:
+        DB: NPS_SCORE=8, NPS_CATEGORY="PASSIVE"
+
+  ── ERROR CASES ────────────────────────────────────────────────────────────────────
+
+  #20 ALREADY_SUBMITTED — re-submit same mobile after #15 completes
+      {
+        "mobileNumber": "8968083334",
+        "feedbackId": "ext-ref-006",
+        "npsScore": 6,
+        "l1TemplateId": "test"
+      }
+      Expected 409:
+        { errorCode: "FEEDBACK_ALREADY_SUBMITTED", message: "Feedback already submitted through OPEN_API" }
+
+  #21 NO_TOUCHPOINT — mobile not in system
+      {
+        "mobileNumber": "9999999999",
+        "feedbackId": "ext-ref-007",
+        "npsScore": 8,
+        "l1TemplateId": "test"
+      }
+      Expected 400/500:
+        No active touchpoint found for mobile: 9999999999
+
+  #22 NO_SURVEY_TRIGGERED — touchpoint exists but no outbox entry
+      {
+        "mobileNumber": "2228357000",
+        "feedbackId": "ext-ref-008",
+        "npsScore": 8,
+        "l1TemplateId": "Availability"
+      }
+      Expected 500:
+        No survey found for mobile: 2228357000
+
+  #23 VALIDATION — npsScore out of range (max is 10)
+      {
+        "mobileNumber": "9413376905",
+        "feedbackId": "ext-ref-009",
+        "npsScore": 11,
+        "l1TemplateId": "Delivery Efficiency"
+      }
+      Expected 400:
+        Validation error — npsScore must be <= 10
+
+  #24 VALIDATION — missing mobileNumber
+      {
+        "feedbackId": "ext-ref-010",
+        "npsScore": 8,
+        "l1TemplateId": "test"
+      }
+      Expected 400:
+        Validation error — mobileNumber: must not be blank
+
+  #25 VALIDATION — missing l1TemplateId
+      {
+        "mobileNumber": "9413376905",
+        "npsScore": 7
+      }
+      Expected 400:
+        Validation error — l1TemplateId: must not be blank
+
+  #26 VALIDATION — negative npsScore
+      {
+        "mobileNumber": "9413376905",
+        "feedbackId": "ext-ref-011",
+        "npsScore": -1,
+        "l1TemplateId": "Delivery Efficiency"
+      }
+      Expected 400:
+        Validation error — npsScore must be >= 0
+}
