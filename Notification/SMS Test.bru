@@ -1,0 +1,59 @@
+meta {
+  name: SMS Test
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{admin_url}}/api/v1/sms-test?method=POST&contentType=json
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [
+    {
+      "DOC_NO": "64097342",
+      "DOC_TYPE": "UTCL_Trade",
+      "SMS_MSG": "Dear Customer, your valuable feedback helps us improve your experience. Under Mission Happiness – UltraTech, we may call you from 22 6838 9999. Share your feedback here: {short}  -UltraTech Cement",
+      "MOBILE_NO": "918779200752",
+      "PROJECT_ID": 23,
+      "MSG_TYPE": "S",
+      "PROJECT_KEY": "oth+Hg07IoM64kUfEZ/4fg==",
+      "SHORT_LINK": 1,
+      "ORIGINAL_URL": "https://speed.eye2serve.com/mission-happiness/feedback/key/TEST"
+    }
+  ]
+}
+
+vars:pre-request {
+  admin_url: https://speed.eye2serve.com/mission-happinessAPI/app/admin
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}
+
+docs {
+  Tests the RTI SMS gateway via SmsTestController (POST /api/v1/sms-test?method=POST&contentType=json).
+  Gateway URL: http://10.1.56.65/RTISMSApp/MessageService/SMSMsg/ProcessSMS
+  
+  Key fields:
+  - MOBILE_NO: without country code (7304258736, NOT 917304258736)
+  - SMS_MSG: use {short} as placeholder — gateway replaces it with the shortened URL
+  - SHORT_LINK: 1 triggers URL shortening; ORIGINAL_URL is the full URL to shorten
+  - PROJECT_ID / PROJECT_KEY: RTI project-level auth credentials
+  - DOC_NO: reference document number (e.g. survey trigger ID or touchpoint ID)
+  - DOC_TYPE: "UTCL_Trade" for Trade, adjust per segment
+  - MSG_TYPE: "S" for SMS
+  
+  On success, port this to:
+    mh-notification-service/.../service/SmsSenderService.java → callSmsApi()
+  Then delete SmsTestController + SmsTestService from admin-service.
+}
+​

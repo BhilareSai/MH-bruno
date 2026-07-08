@@ -5,35 +5,35 @@ meta {
 }
 
 post {
-  url: http://10.1.57.78:8080/mission-happinessAPI/app/admin/api/v1/whatsapp-test
+  url: {{admin_url}}/api/v1/whatsapp-test
   body: json
   auth: inherit
 }
 
-# URL options:
-# local:  http://localhost:8080/mission-happinessAPI/app/admin/api/v1/whatsapp-test
-# dev:    http://10.1.57.78:8080/mission-happinessAPI/app/admin/api/v1/whatsapp-test
-# prod:   https://speed.eye2serve.com/mission-happinessAPI/app/admin/api/v1/whatsapp-test
-
 headers {
-  content-type: application/json
-  business-segment: KEY
+  Authorization: Bearer {{access_token}}
+  Content-Type: application/json
+  Business-Segment: KEY
 }
 
 body:json {
   {
     "template_id": "feedback_3sep_eng",
     "parameter_values": {
-      "0": "Larsen and Toubro Limiited Constr",
-      "1": "https://speed.eye2serve.com/mission-happiness/feedback/KEY/RIScWpVjOzZootdpCRGE3kN4cLBtZpeBl2QaCYcb33FX1qq3Ujc7DYZkYbzr-3n05gFWzgHvZmhSVew-F631"
+      "0": "jagruti",
+      "1": "https://speed.eye2serve.com/mission-happiness/feedback/trade/IBZPBK8U-PDjWran2sH8dsNt_hMbAWUpy4SN0inxQ4W5hG02VjgnY5_QkK_6v6cQgfsmGyDTKNkYAdco?step=choose"
     },
     "project": "2",
     "project_key": "2",
     "doc_type": "WA",
     "doc_no": "123456",
-    "mobile_no": "919326452041",
+    "mobile_no": "918779200752",
     "msg_type": "PT"
   }
+}
+
+vars:pre-request {
+  admin_url: https://speed.eye2serve.com/mission-happinessAPI/app/admin
 }
 
 settings {
@@ -44,7 +44,7 @@ settings {
 docs {
   Calls the admin service whatsapp-test endpoint which proxies to eye2serve at 10.1.56.65.
   The admin service generates a token and sends the message in one shot.
-
+  
   To test shut_period_is_over_new (working template):
   {
     "template_id": "shut_period_is_over_new",
@@ -57,3 +57,4 @@ docs {
     "msg_type": "PT"
   }
 }
+​

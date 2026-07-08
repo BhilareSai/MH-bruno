@@ -5,9 +5,21 @@ meta {
 }
 
 get {
-  url: {{base_url}}/admin/api/v1/feedback/open/pending?mobile_number=2929828282
+  url: {{base_url}}/admin/api/v1/feedback/open/pending?mobile_number=9999417244
   body: none
   auth: none
+}
+
+params:query {
+  mobile_number: 9999417244
+}
+
+headers {
+  Business-Segment: key
+}
+
+vars:pre-request {
+  base_url: https://speed.eye2serve.com/mission-happinessAPI/app
 }
 
 script:post-response {
@@ -31,94 +43,94 @@ settings {
 docs {
   No-auth API — checks if there is a pending (unfilled) survey for the given mobile number.
   Pipeline: MH_TOUCHPOINT_MAPPING → MH_NOTIFICATION_OUTBOX (latest row, no status filter) → MH_CUSTOMER_FEEDBACK_KEY/NONTRADE
-
+  
   ── HAPPY PATH ─────────────────────────────────────────────────────────────────────
-
+  
   #1  PENDING — HO_RO_COMMERCIAL, KEY, GROUP level (2 outbox entries)
       mobile_number = 2929828282   (Touchpoint: "Test", Group: 900000R001)
       Expected 200:
         { hasPendingFeedback: true, surveyId: "20260627G", touchpointRole: "HO_RO_COMMERCIAL",
           businessSegment: "KEY", l1Drivers: ["test"] }
-
+  
   #2  PENDING — HO_RO_COMMERCIAL, KEY, GROUP level
       mobile_number = 8826266047   (Balveer Singh, Group: 900000G022)
       Expected 200:
         { hasPendingFeedback: true, surveyId: "20260627G", touchpointRole: "HO_RO_COMMERCIAL",
           businessSegment: "KEY", l1Drivers: ["test"] }
-
+  
   #3  PENDING — HO_RO_COMMERCIAL, KEY, GROUP level
       mobile_number = 9775937767   (Anurag Aggarwal, Group: 900000P046)
       Expected 200:
         { hasPendingFeedback: true, surveyId: "20260627G", touchpointRole: "HO_RO_COMMERCIAL",
           businessSegment: "KEY", l1Drivers: ["test"] }
-
+  
   #4  PENDING — HO_RO_COMMERCIAL, KEY, GROUP level
       mobile_number = 9214860857   (Kapil Jain, Group: 900000D027)
       Expected 200:
         { hasPendingFeedback: true, surveyId: "20260627G", touchpointRole: "HO_RO_COMMERCIAL",
           businessSegment: "KEY", l1Drivers: ["test"] }
-
+  
   #5  PENDING — PLANNING_COORDINATOR, KEY, SITE level
       mobile_number = 8976985677   (Hiren Ji, Site: 631253D242)
       Expected 200:
         { hasPendingFeedback: true, surveyId: "20260627", touchpointRole: "PLANNING_COORDINATOR",
           businessSegment: "KEY",
           l1Drivers: ["Customer Relationship Management","Delivery Efficiency","Ordering Process and Availability"] }
-
+  
   #6  PENDING — PLANNING_COORDINATOR, KEY, SITE level
       mobile_number = 7350000000   (Kirandeep Singh, Site: 610324G102)
       Expected 200:
         { hasPendingFeedback: true, surveyId: "20260627", touchpointRole: "PLANNING_COORDINATOR",
           businessSegment: "KEY",
           l1Drivers: ["Customer Relationship Management","Delivery Efficiency","Ordering Process and Availability"] }
-
+  
   #7  PENDING — PLANNING_COORDINATOR, KEY, SITE level
       mobile_number = 9844646078   (Ramesh Maloo, Site: 640217C026)
       Expected 200:
         { hasPendingFeedback: true, surveyId: "20260627", touchpointRole: "PLANNING_COORDINATOR",
           businessSegment: "KEY",
           l1Drivers: ["Customer Relationship Management","Delivery Efficiency","Ordering Process and Availability"] }
-
+  
   #8  PENDING — PLANNING_COORDINATOR, KEY, SITE level
       mobile_number = 6367823542   (GOVIND GUPTA, Site: 620219H033)
       Expected 200:
         { hasPendingFeedback: true, surveyId: "20260627", touchpointRole: "PLANNING_COORDINATOR",
           businessSegment: "KEY",
           l1Drivers: ["Customer Relationship Management","Delivery Efficiency","Ordering Process and Availability"] }
-
+  
   ── ALREADY SUBMITTED ──────────────────────────────────────────────────────────────
-
+  
   #9  ALREADY_SUBMITTED — HO_RO_PROCUREMENT, KEY (already submitted NPS=2 for 20260627G)
       mobile_number = 9978385849   (Jitendra Panchal)
       Expected 200:
         { hasPendingFeedback: false, reason: "ALREADY_SUBMITTED" }
-
+  
   #10 ALREADY_SUBMITTED — HO_RO_PROCUREMENT, KEY (already submitted NPS=2 for 20260627G)
       mobile_number = 9376710358   (Birender Singh)
       Expected 200:
         { hasPendingFeedback: false, reason: "ALREADY_SUBMITTED" }
-
+  
   ── NO SURVEY TRIGGERED ────────────────────────────────────────────────────────────
-
+  
   #11 NO_SURVEY_TRIGGERED — SITE_STORES_MANAGER, KEY, active touchpoint but no outbox entry
       mobile_number = 2228357000   (P ANAND, Site: 640431P033)
       Expected 200:
         { hasPendingFeedback: false, reason: "NO_SURVEY_TRIGGERED" }
-
+  
   #12 NO_SURVEY_TRIGGERED — SITE_STORES_MANAGER, KEY
       mobile_number = 2240647500   (ARUN KUMAR AGARWAL, Site: 630314P060)
       Expected 200:
         { hasPendingFeedback: false, reason: "NO_SURVEY_TRIGGERED" }
-
+  
   ── NO TOUCHPOINT ──────────────────────────────────────────────────────────────────
-
+  
   #13 NO_TOUCHPOINT — mobile not registered in system at all
       mobile_number = 9999999999
       Expected 200:
         { hasPendingFeedback: false, reason: "NO_TOUCHPOINT" }
-
+  
   #14 NO_TOUCHPOINT — another unknown mobile
       mobile_number = 1234567890
       Expected 200:
         { hasPendingFeedback: false, reason: "NO_TOUCHPOINT" }
-}
+}​
