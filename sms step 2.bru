@@ -1,0 +1,41 @@
+meta {
+  name: sms step 2
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://speed.eye2serve.com/mission-happinessAPI/app/admin/api/v1/sms-test?method=POST
+  body: json
+  auth: inherit
+}
+
+params:query {
+  method: POST
+}
+
+headers {
+  authorization: Bearer 
+  business-segment: Trade
+  content-type: application/json
+}
+
+body:json {
+  [
+    {
+      "DOC_NO": "64097342",
+      "DOC_TYPE": "UTCL_Trade",
+      "SMS_MSG": "UltraTech Mission Happiness: Your feedback matters. Expect call from 02268389999. http://1mt.in/UTRATK/{short}  -UltraTech Cement",
+      "MOBILE_NO": "7304258736",
+      "PROJECT_ID": 23,
+      "MSG_TYPE": "S",
+      "PROJECT_KEY": "oth+Hg07IoM64kUfEZ/4fg==",
+      "SHORT_LINK": 1,
+      "ORIGINAL_URL": "https://speed.eye2serve.com/mission-happiness/feedback/TRADE/gLB3gQXMNVBvvoeQx8b4RgfuDRhyLSeHsNW_96MdN6qpYKCjIeHiLv9fmQWDa75A8FDQFxwiljYsoHDm%22
+    }
+  ]
+}
+
+settings {
+  encodeUrl: false
+}
