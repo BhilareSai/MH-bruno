@@ -1,0 +1,15 @@
+meta {
+  name: whatsapp step 1
+  type: http
+  seq: 20
+}
+
+get {
+  url: http://10.1.56.65:8080/WhatsAppAPIService/token/generate-token
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

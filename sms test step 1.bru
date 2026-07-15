@@ -1,0 +1,23 @@
+meta {
+  name: sms test step 1
+  type: http
+  seq: 18
+}
+
+post {
+  url: https://speed.eye2serve.com/RTISMSApp/users/generateToken
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username": "utcl",
+    "password": "utcl@123"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

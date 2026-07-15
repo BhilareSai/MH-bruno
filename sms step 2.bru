@@ -5,17 +5,13 @@ meta {
 }
 
 post {
-  url: https://speed.eye2serve.com/mission-happinessAPI/app/admin/api/v1/sms-test?method=POST
+  url: https://speed.eye2serve.com/ RTISMSApp/SMSService/ProcessSMS
   body: json
   auth: inherit
 }
 
-params:query {
-  method: POST
-}
-
 headers {
-  authorization: Bearer 
+  authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1dGNsIiwiaWF0IjoxNzg0MDEzMTQ2LCJleHAiOjE3ODQwMTY3NDZ9.dmencnYb4cE7T2C8fwelknMdrhyGkJFtV62JIQYr4ZM
   business-segment: Trade
   content-type: application/json
 }
@@ -26,16 +22,17 @@ body:json {
       "DOC_NO": "64097342",
       "DOC_TYPE": "UTCL_Trade",
       "SMS_MSG": "UltraTech Mission Happiness: Your feedback matters. Expect call from 02268389999. http://1mt.in/UTRATK/{short}  -UltraTech Cement",
-      "MOBILE_NO": "7304258736",
+      "MOBILE_NO": "8779200752",
       "PROJECT_ID": 23,
       "MSG_TYPE": "S",
       "PROJECT_KEY": "oth+Hg07IoM64kUfEZ/4fg==",
       "SHORT_LINK": 1,
-      "ORIGINAL_URL": "https://speed.eye2serve.com/mission-happiness/feedback/TRADE/gLB3gQXMNVBvvoeQx8b4RgfuDRhyLSeHsNW_96MdN6qpYKCjIeHiLv9fmQWDa75A8FDQFxwiljYsoHDm%22
+      "ORIGINAL_URL": "https://speed.eye2serve.com/mission-happiness/feedback/TRADE/gLB3gQXMNVBvvoeQx8b4RgfuDRhyLSeHsNW_96MdN6qpYKCjIeHiLv9fmQWDa75A8FDQFxwiljYsoHDm%22"
     }
   ]
 }
 
 settings {
   encodeUrl: false
+  timeout: 0
 }

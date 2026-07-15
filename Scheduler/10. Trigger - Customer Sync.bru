@@ -5,14 +5,18 @@ meta {
 }
 
 post {
-  url: {{scheduler_url}}/api/dashboard/trigger/customer-sync
+  url: {{scheduler_url}}/api/dashboard/trigger/dashboard-aggregation
   body: none
   auth: inherit
 }
 
 headers {
   Authorization: Bearer {{access_token}}
-  Business-Segment: KEY
+  Business-Segment: Trade
+}
+
+vars:pre-request {
+  scheduler_url: https://speed.eye2serve.com/mission-happinessAPI/app/scheduler
 }
 
 settings {
@@ -23,6 +27,6 @@ settings {
 docs {
   Syncs customers from UTCL source tables to MH_CUSTOMER.
   Run this if new customers are not showing up in the feedback/calling list flows.
-
+  
   Response: { status: "SUCCESS", job: "customer-sync", durationMs: ... }
 }
