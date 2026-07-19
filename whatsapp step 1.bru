@@ -4,12 +4,20 @@ meta {
   seq: 20
 }
 
-get {
+post {
   url: http://10.1.56.65:8080/WhatsAppAPIService/token/generate-token
-  body: none
+  body: json
   auth: inherit
+}
+
+body:json {
+  {
+      "userid": "utcl",
+      "password": "utcl@123"
+  }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

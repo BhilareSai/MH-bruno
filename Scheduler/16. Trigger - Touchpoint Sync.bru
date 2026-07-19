@@ -5,14 +5,19 @@ meta {
 }
 
 post {
-  url: {{scheduler_url}}/api/dashboard/trigger/touchpoint-sync
+  url: {{scheduler_url}}/api/dashboard/trigger/dashboard-aggregation/backfill?fromDate=2020-01-01&toDate=2026-07-17
   body: none
   auth: inherit
 }
 
+params:query {
+  fromDate: 2020-01-01
+  toDate: 2026-07-17
+}
+
 headers {
   Authorization: Bearer {{access_token}}
-  Business-Segment: KEY
+  Business-Segment: Trade
 }
 
 vars:pre-request {

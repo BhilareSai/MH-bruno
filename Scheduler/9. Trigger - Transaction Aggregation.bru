@@ -5,14 +5,19 @@ meta {
 }
 
 post {
-  url: {{scheduler_url}}/api/dashboard/trigger/transaction-aggregation
+  url: {{scheduler_url}}/api/dashboard/trigger/t
   body: none
-  auth: inherit
+  auth: bearer
 }
 
 headers {
   Authorization: Bearer {{access_token}}
   Business-Segment: KEY
+}
+
+vars:pre-request {
+  scheduler_url: http://localhost:8080/mission-happinessApi/app/scheduler
+  access_token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJzaWRkZXNoMUBnbWFpbC5jb20iLCJpc3MiOiJtaC1wbGF0Zm9ybSIsImF1ZCI6WyJtaC1zZXJ2aWNlcyJdLCJpYXQiOjE3ODQyNzg3NDksImV4cCI6MTc4NDI4MDU0OSwidXNlcklkIjoxNDczOTUzMDI1Mjc0MDY4OTkyLCJlbWFpbCI6InNpZGRlc2gxQGdtYWlsLmNvbSIsImVtcGxveWVlSWQiOiIxMjFqZmpqIiwiZnVsbE5hbWUiOiJzaWRkZXNoMSIsInVzZXJUeXBlIjoiVVRDTF9FTVBMT1lFRSIsInNlZ21lbnRzIjpbIlRSQURFIiwiTk9OLVRSQURFIiwiS0VZIl0sInJvbGVUcmFkZSI6IkJVU0lORVNTX0FETUlOIiwicm9sZUtleSI6IkJVU0lORVNTX0FETUlOIiwicm9sZU5vbnRyYWRlIjoiQlVTSU5FU1NfQURNSU4iLCJyb2xlcyI6WyJCVVNJTkVTU19BRE1JTiJdLCJwZXJtaXNzaW9ucyI6WyJDUk0iXX0.aW6e-02pRHEhBx9zs9QrkvNRHQUM5-fkzfjJqTm2Nzw2qBaQ484H9cqSDzpCEZSn
 }
 
 settings {
@@ -24,6 +29,6 @@ docs {
   Manually triggers the transaction aggregation job.
   Aggregates UTCL_TRANSACTIONS into UTCL_MONTHLY_AGGREGATE.
   Required before running the Trade Cement Pipeline (Stage 0 gate checks this).
-
+  
   Response: { status: "SUCCESS", job: "transaction-aggregation", durationMs: ... }
 }

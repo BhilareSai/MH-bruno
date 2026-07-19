@@ -1,0 +1,50 @@
+meta {
+  name: whatsapp step 2
+  type: http
+  seq: 21
+}
+
+post {
+  url: http://10.1.56.65:8080/WhatsAppAPIService/WAService/sendWAText
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1dGNsIiwidXNyIjoidXRjbCIsImlzcyI6InV0Y2wtd2EtYXBpIiwiZXhwIjoxNzg0MTA3MDc0LCJpYXQiOjE3ODQxMDM0NzQsInJvbCI6InVzZXIifQ.czq4gfff2s43W8ep7LiKS1Dv6Gxzx7ygdAcq5-DSUv0icGX088tw4QY3hlRaS29Q1T3azRw0ugK4NGudhNmOkA
+}
+
+body:json {
+  {
+      "template_id": "feedback_3sep_eng",
+      "parameter_values": {
+        "0": "Larsen and Toubro Limiited Constr",
+        "1": "https://speed.eye2serve.com/mission-happiness/feedback/KEY/RIScWpVjOzZootdpCRGE3kN4cLBtZpeBl2QaCYcb33FX1qq3Ujc7DYZkYbzr-3n05gFWzgHvZmhSVew-F631"
+      },
+      "project": "2",
+      "project_key": "2",
+      "doc_type": "WA",
+      "doc_no": "123456",
+      "mobile_no": "919359977687",
+      "msg_type": "PT"
+    }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  {
+      "template_id": "shut_period_is_over_new",
+      "parameter_values": { "0": "Amey" },
+      "project": "SharePurchase",
+      "project_key": "SP",
+      "doc_type": "TEXT",
+      "doc_no": "843",
+      "mobile_no": "918779200752",
+      "msg_type": "PT"
+    }
+    
+}
