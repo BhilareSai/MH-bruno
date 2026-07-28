@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{scheduler_url}}/api/dashboard/trigger/customer-mapping-sync
+  url: {{scheduler_url}}/api/dashboard/trigger/cus
   body: none
   auth: inherit
 }
@@ -13,6 +13,10 @@ post {
 headers {
   Authorization: Bearer {{access_token}}
   Business-Segment: KEY
+}
+
+vars:pre-request {
+  scheduler_url: https://speed.eye2serve.com/mission-happinessAPI/app/scheduler
 }
 
 settings {
@@ -23,6 +27,6 @@ settings {
 docs {
   Syncs customer-user mappings into MH_CUSTOMER_USER_MAPPING_TRADE/KEY/NONTRADE.
   Run this if touchpoints or mappings are stale.
-
+  
   Response: { status: "SUCCESS", job: "customer-mapping-sync", durationMs: ... }
 }
