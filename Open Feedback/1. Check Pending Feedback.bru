@@ -5,13 +5,13 @@ meta {
 }
 
 get {
-  url: {{base_url}}/admin/api/v1/feedback/open/pending?mobile_number=9999417244
+  url: {{base_url}}/admin/api/v1/feedback/open/pending?mobile_number=6005950135
   body: none
   auth: none
 }
 
 params:query {
-  mobile_number: 9999417244
+  mobile_number: 6005950135
 }
 
 headers {
@@ -19,7 +19,7 @@ headers {
 }
 
 vars:pre-request {
-  base_url: https://speed.eye2serve.com/mission-happinessAPI/app
+  base_url: http://localhost:8080/mission-happinessAPI/app
 }
 
 script:post-response {
@@ -133,4 +133,4 @@ docs {
       mobile_number = 1234567890
       Expected 200:
         { hasPendingFeedback: false, reason: "NO_TOUCHPOINT" }
-}​
+}
