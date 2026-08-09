@@ -5,18 +5,18 @@ meta {
 }
 
 post {
-  url: {{scheduler_url}}/api/dashboard/trigger/cus
+  url: {{scheduler_url}}/api/dashboard/trigger/user-sync
   body: none
   auth: inherit
 }
 
 headers {
   Authorization: Bearer {{access_token}}
-  Business-Segment: KEY
+  Business-Segment: Trade
 }
 
 vars:pre-request {
-  scheduler_url: https://speed.eye2serve.com/mission-happinessAPI/app/scheduler
+  scheduler_url: https://eye2serve.com/missionhappinessAPI/app/scheduler
 }
 
 settings {

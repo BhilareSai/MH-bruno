@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{scheduler_url}}/api/dashboard/reset/customer-mapping
+  url: {{scheduler_url}}/api/dashboard/trigger/c
   body: none
   auth: inherit
 }
@@ -22,14 +22,14 @@ settings {
 
 docs {
   ⚠️  DEV/QA USE ONLY — clears all customer-user mapping tables.
-
+  
   What it deletes:
     - MH_CUSTOMER_USER_MAPPING_TRADE
     - MH_CUSTOMER_USER_MAPPING_NONTRADE
     - MH_CUSTOMER_USER_MAPPING_KEY
     - MH_SYNC_TRACKER row for customerMappingSync
     - Releases the ShedLock for customerMappingSync
-
+  
   NEVER touches UTCL source tables.
   Use to force a full re-sync by running customer-mapping-sync after this.
 }
