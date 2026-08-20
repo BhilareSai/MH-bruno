@@ -5,14 +5,14 @@ meta {
 }
 
 get {
-  url: {{base_url}}/admin/api/v1/admin/filters/user-options?field=reportingManager&search=seed
+  url: {{base_url}}/admin/api/v1/admin/filters/user-options?field=functionalRole
   body: none
   auth: inherit
 }
 
 params:query {
-  field: reportingManager
-  search: seed
+  field: functionalRole
+  ~search: 
 }
 
 headers {
@@ -20,8 +20,14 @@ headers {
   Business-Segment: Trade
 }
 
+vars:pre-request {
+  base_url: http://localhost:8080/mission-happinessAPI/app
+  access_token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaWRkZXNoMUBnbWFpbC5jb20iLCJpc3MiOiJtaC1wbGF0Zm9ybSIsImF1ZCI6WyJtaC1zZXJ2aWNlcyJdLCJpYXQiOjE3ODY0NDM2OTcsImV4cCI6MTc4NjQ0NTQ5NywidXNlcklkIjoxNDczOTUzMDI1Mjc0MDY4OTkyLCJlbWFpbCI6InNpZGRlc2gxQGdtYWlsLmNvbSIsImVtcGxveWVlSWQiOiIxMjFqZmpqIiwiZnVsbE5hbWUiOiJzaWRkZXNoMSIsInVzZXJUeXBlIjoiVVRDTF9FTVBMT1lFRSIsInNlZ21lbnRzIjpbIlRSQURFIiwiTk9OLVRSQURFIiwiS0VZIl0sInJvbGVUcmFkZSI6IkJVU0lORVNTX0FETUlOIiwicm9sZUtleSI6IkJVU0lORVNTX0FETUlOIiwicm9sZU5vbnRyYWRlIjoiQlVTSU5FU1NfQURNSU4iLCJyb2xlcyI6WyJCVVNJTkVTU19BRE1JTiJdLCJwZXJtaXNzaW9ucyI6WyJDUk0iXX0.NAbbeN7FCVJj54nIXlXqmIcfKcu8FdPYPbLRsvuBhG0fmhe0h7JzpWPlkg0J7XktRcnwbNoi7GhdAqalPoAMng
+}
+
 settings {
   encodeUrl: true
+  timeout: 0
 }
 
 docs {
@@ -29,4 +35,3 @@ docs {
     --header 'Authorization: Bearer {{access_token}}' \
     --header 'Business-Segment: Trade'
 }
-​

@@ -15,6 +15,10 @@ headers {
   Business-Segment: KEY
 }
 
+vars:pre-request {
+  scheduler_url: https://eye2serve.com/missionhappinessAPI/app/scheduler
+}
+
 settings {
   encodeUrl: false
   timeout: 0
@@ -23,7 +27,7 @@ settings {
 docs {
   Returns status of ALL scheduled jobs — cron, last run, next fire, duration, rows affected.
   Combines data from scheduler-frequency.yaml + SHEDLOCK + MH_SYNC_TRACKER.
-
+  
   Response per job:
     name, description, cron, status (IDLE/RUNNING/LOCKED/NEVER_RUN),
     lastRun, nextFire, timeUntilNext, durationMs, rowsAffected

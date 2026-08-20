@@ -15,6 +15,10 @@ headers {
   Business-Segment: KEY
 }
 
+vars:pre-request {
+  scheduler_url: http://localhost:8080/mission-happinessAPI
+}
+
 settings {
   encodeUrl: false
   timeout: 600000
@@ -22,11 +26,10 @@ settings {
 
 docs {
   Backfills the dashboard aggregation for a date range.
-
+  
   Query params:
     fromDate  YYYY-MM-DD (inclusive)
     toDate    YYYY-MM-DD (inclusive)
-
+  
   Use when dashboard data is missing or stale for historical dates.
 }
-​
